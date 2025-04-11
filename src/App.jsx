@@ -1,10 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/navbar/navbar';
+import Home from './components/home/home';
+import Season from './components/season/season';
+import Characters from './components/characters/characters';
+import Megazord from './components/megazord/megazord';
+import Services from './services/powerRagerService';
 
-const App = () => {
-  return <h1>Hello world!</h1>;
-};
+function App() {
+  return (
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/season" element={<Season />} />
+        <Route path="/characters" element={<Characters />} />
+        <Route path="/megazord" element={<Megazord />} />
+        <Route path="/services" element={<Services />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
