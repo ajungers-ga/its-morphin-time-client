@@ -7,6 +7,7 @@ const NavBar = () => {
 
   // 3. Return some JSX
   return (
+    <>
     <nav>
       <ul>
         <li><Link to="/">Home</Link></li>
@@ -16,6 +17,7 @@ const NavBar = () => {
         <li><Link to="/services">Services</Link></li>
       </ul>
     </nav>
+    </>
   );
 };
 
