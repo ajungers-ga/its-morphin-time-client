@@ -1,0 +1,56 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - /* Adjust this value based on your header/footer height */ 120px); /* Ensure it takes up most of the screen */
+    background-color: #f0f0f0; /* Light grey background */
+  }
+  
+  .welcome-content {
+    text-align: center;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .welcome-content h1 {
+    color: #e53935; /* Red color (classic Power Rangers) */
+    margin-bottom: 20px;
+  }
+  
+  .welcome-content p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-bar input[type="text"] {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    flex-grow: 1;
+    max-width: 400px;
+  }
+  
+  .search-bar button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #f9a825; /* Yellow/Gold color (another Power Rangers accent) */
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .search-bar button[type="submit"]:hover {
+    background-color: #f48c06;
+  }

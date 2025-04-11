@@ -1,0 +1,40 @@
+/* SeasonDetail.css */
+.season-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px); /* Adjust as needed */
+    background-color: #e0f7fa; /* Light blue background */
+  }
+  
+  .season-info {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+  }
+  
+  .season-info h1 {
+    color: #039be5; /* Blue color */
+    margin-bottom: 20px;
+  }
+  
+  .season-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  
+  .season-info p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  
+  .season-info strong {
+    font-weight: bold;
+    color: #2196f3; /* Slightly darker blue */
+  }
