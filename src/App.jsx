@@ -9,6 +9,7 @@ import Characters from './components/characters/characters';
 import Megazord from './components/megazord/megazord';
 import * as Services from './components/services/services';
 import Footer from './components/footer/footer';
+import { getAllRangers } from './services/rangerService'; // added by AJ, updating connection to backend
 
 const App = ()=> {
   const [seasons, setSeasons] = useState([]);
@@ -21,11 +22,12 @@ const App = ()=> {
 
   }
 
+  const [rangers, setRangers] = useState([]); // added by AJ, updating connection to backend
 
   useEffect(() => {
     const fetchSeasons = async () => {
       try {
-        const fetchedSeasons = await Services.fetchSeasons(); // Assuming you have a 'fetchSeasons' function in your services
+        const fetchedSeasons = await Services.fetchSeasons(); 
         if (fetchedSeasons && fetchedSeasons.err) {
           throw new Error(fetchedSeasons.err);
         }
@@ -35,7 +37,18 @@ const App = ()=> {
       }
     };
 
+    // BELOW = added by AJ, updating connection to backend
+    const fetchRangers = async () => {
+      try {
+        const fetchedRangers = await getAllRangers();
+        setRangers(fetchedRangers || []);
+      } catch (err) {
+        console.error("Error fetching rangers:", err);
+      }
+    };
+ 
     fetchSeasons();
+    fetchRangers(); // added by AJ, updating connection to backend
   }, []);
 
   return (
@@ -43,11 +56,11 @@ const App = ()=> {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home seasons={seasons} handleSelect={handleSelect}/>} />
-        <Route path="/season" element={<Season handleSelect={handleSelect} />} />
-        <Route path="/characters" element={<Characters handleSelect={handleSelect}/>} />
-        <Route path="/megazord" element={<Megazord handleSelect={handleSelect}/>} />
-        <Route path="/services" element={<Services handleSelect={handleSelect}/>} />
+        <Route path="/" element={<Home seasons={seasons}/>} />
+        <Route path="/season" element={<Season />} />
+        <Route path="/characters" element={<Characters rangers={rangers} />} />
+        <Route path="/megazord" element={<Megazord />} />
+        {/* <Route path="/services" element={<Services />} /> */}
       </Routes>
       <Footer />
     </Router>
