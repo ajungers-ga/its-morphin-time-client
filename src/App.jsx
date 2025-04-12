@@ -12,7 +12,8 @@ import { getAllRangers } from './services/rangerService'; // added by AJ, updati
 
 const App = ()=> {
   const [seasons, setSeasons] = useState([]);
-  const [rangers, setRangers] = useState([]); // added by AJ, updating connection to backend
+  const [rangers, setRangers] = useState([]);
+  const [selected, setSelected] = useState(null); // added by AJ, updating connection to backend
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -41,8 +42,8 @@ const App = ()=> {
     fetchRangers(); // added by AJ, updating connection to backend
   }, []);
 
-  const handleSelect = (selector) => {
-    setSelected(selector);
+  const handleSelect = (selected) => {
+    setSelected(selected);
     // Close the form if it's open when a new pet is selected.
     setIsFormOpen(false);
   };

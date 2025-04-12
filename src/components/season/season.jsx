@@ -19,6 +19,18 @@ const Season = ({selected}) => {
         <p><strong>Synopsis:</strong> When the evil witch Rita Repulsa is freed from her prison on the Moon, the wise sage Zordon recruits five teenagers with attitude - Jason Lee Scott, Kimberly Hart, Billy Cranston, Trini Kwan, and Zack Taylor - and gives them the power to morph into the Mighty Morphin Power Rangers to protect Earth.</p>
         <p><strong>Key Characters:</strong> Red Ranger (Jason), Pink Ranger (Kimberly), Blue Ranger (Billy), Yellow Ranger (Trini), Black Ranger (Zack), Green Ranger (Tommy)</p>
       </div>
+      <div>
+      <p><strong>Name:</strong> {selected.name}</p>
+      <p><strong>Sentai Name:</strong> {selected.sentaiName}</p>
+      <p><strong>Airing Year:</strong> {selected.airingYear}</p>
+      <p><strong>Season Number:</strong> {selected.seasonNumber}</p>
+      <p><strong>Number of Episodes:</strong> {selected.numberOfEpisodes}</p>
+      <p><strong>First Episode:</strong> {selected.firstEpisode}</p>
+      <p><strong>Last Episode:</strong> {selected.lastEpisode}</p>
+      <p><strong>Theme:</strong> {selected.theme}</p>
+      <p><strong>Producer:</strong> {selected.producer}</p>
+      <p><strong>Rangers:</strong> {selected.rangers.join(', ')}</p>
+    </div>
     </div>
     </>)
   };
