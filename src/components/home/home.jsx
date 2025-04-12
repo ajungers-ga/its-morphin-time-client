@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import './Home.css';
 
-const Home = (props) => {
+const Home = ({ seasons, handleSelect }) => {
 
-  console.log(props);
+  console.log(seasons);
 
   return (
     <div className="home-container">
@@ -15,16 +15,16 @@ const Home = (props) => {
         <div className="search-bar">
           <input type="text" placeholder="Search for your favorite season or Ranger..." />
           <button type="submit">Search</button>
-        </div>
-        <div>{!props.seasons.length ? (
-  <h2>No seasons</h2>
-) : (
-  <ul>
-    {props.seasons.map((season) => (
-      <li key={season._id} ><strong>Season: </strong> <Link to="/season"style={{ cursor: 'pointer', color: "#646CFF" }} onClick={()=> props.handlesSelect(season)}>{season.name}</Link></li>
-    ))}
-  </ul>
-)}
+          <div>{!seasons || !seasons.length ? ( // Added a check for seasons being undefined as well
+        <h2>No seasons</h2>
+      ) : (
+        <ul>
+          {seasons.map((season) => (
+            <li key={season._id} ><strong>Season: </strong> <Link to="/season"style={{ cursor: 'pointer', color: "#646CFF" }} onClick={()=> props.handlesSelect(season)}>{season.name}</Link></li>
+          ))}
+        </ul>
+      )}
+      </div>
 </div>
       </div>
     </div>

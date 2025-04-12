@@ -1,5 +1,4 @@
 // src/App.jsx
-
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/navbar/navbar';
@@ -27,7 +26,7 @@ const App = ()=> {
   useEffect(() => {
     const fetchSeasons = async () => {
       try {
-        const fetchedSeasons = await Services.fetchSeasons(); 
+        const fetchedSeasons = await Services.fetchSeasons();
         if (fetchedSeasons && fetchedSeasons.err) {
           throw new Error(fetchedSeasons.err);
         }
@@ -46,7 +45,7 @@ const App = ()=> {
         console.error("Error fetching rangers:", err);
       }
     };
- 
+
     fetchSeasons();
     fetchRangers(); // added by AJ, updating connection to backend
   }, []);
@@ -56,7 +55,7 @@ const App = ()=> {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home seasons={seasons}/>} />
+        <Route path="/" element={<Home seasons={seasons}  handleSelect={handleSelect}/>} />
         <Route path="/season" element={<Season />} />
         <Route path="/characters" element={<Characters rangers={rangers} />} />
         <Route path="/megazord" element={<Megazord />} />
@@ -64,7 +63,7 @@ const App = ()=> {
       </Routes>
       <Footer />
     </Router>
-     <Season selected={selected} />
+     <Season  />
      </>
   );
 }
