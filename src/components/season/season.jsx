@@ -1,8 +1,8 @@
 import React from 'react';
 import './SeasonDetail.css';
 
-const Season = (props) => {
-  if (!props.selected) {
+const Season = ({selected}) => {
+  if (!selected) {
     return (
       <div>
         <h1>NO DETAILS</h1>
