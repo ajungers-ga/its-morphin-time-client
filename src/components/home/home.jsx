@@ -20,7 +20,7 @@ const Home = (props) => {
 ) : (
   <ul>
     {props.seasons.map((season) => (
-      <li key={season._id}>{season.name}</li>
+      <li key={season._id} ><strong>Season: </strong> <a href=""style={{ cursor: 'pointer', color: "#646CFF" }} onClick={()=> alert('you clicked')}>{season.name}</a></li>
     ))}
   </ul>
 )}
