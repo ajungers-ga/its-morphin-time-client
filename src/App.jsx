@@ -12,6 +12,15 @@ import Footer from './components/footer/footer';
 
 const App = ()=> {
   const [seasons, setSeasons] = useState([]);
+  // src/App.jsx
+
+  const [selected, setSelected] = useState(null);
+
+  const handleSelect =(selected) =>{
+    setSelected(selected)
+
+  }
+
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -34,10 +43,10 @@ const App = ()=> {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home seasons={seasons}/>} />
-        <Route path="/season" element={<Season />} />
-        <Route path="/characters" element={<Characters />} />
-        <Route path="/megazord" element={<Megazord />} />
-        <Route path="/services" element={<Services />} />
+        <Route path="/season" element={<Season handleSelect={handleSelect} />} />
+        <Route path="/characters" element={<Characters handleSelect={handleSelect}/>} />
+        <Route path="/megazord" element={<Megazord handleSelect={handleSelect}/>} />
+        <Route path="/services" element={<Services handleSelect={handleSelect}/>} />
       </Routes>
       <Footer />
     </Router>
