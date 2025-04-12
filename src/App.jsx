@@ -41,6 +41,16 @@ const App = ()=> {
     fetchRangers(); // added by AJ, updating connection to backend
   }, []);
 
+  const handleSelect = (selector) => {
+    setSelected(selector);
+    // Close the form if it's open when a new pet is selected.
+    setIsFormOpen(false);
+  };
+
+  const handleFormView = () => {
+    setIsFormOpen(!isFormOpen);
+  };
+
   return (
   <>
     <Router>
