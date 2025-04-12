@@ -65,7 +65,6 @@ const App = ()=> {
       </Routes>
       <Footer />
     </Router>
-     <Season  />
      </>
   );
 }
