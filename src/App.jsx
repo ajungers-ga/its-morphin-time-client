@@ -42,7 +42,7 @@ const App = ()=> {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home seasons={seasons}/>} />
+        <Route path="/" element={<Home seasons={seasons} handleSelect={handleSelect}/>} />
         <Route path="/season" element={<Season handleSelect={handleSelect} />} />
         <Route path="/characters" element={<Characters handleSelect={handleSelect}/>} />
         <Route path="/megazord" element={<Megazord handleSelect={handleSelect}/>} />
