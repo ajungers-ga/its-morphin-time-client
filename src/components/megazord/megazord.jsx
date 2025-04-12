@@ -1,19 +1,47 @@
+// 1. Import dependencies
 import React from 'react';
 import './MegazordDetail.css';
 
+// 2. Define component and accept megazords as props
+const Megazord = ({ megazords }) => {
 
-const Megazord = () => {
-    return (
-      <div className="megazord-detail-container">
-      <div className="megazord-info">
-        <h1>Mighty Morphin Megazord</h1>
-        <img src="https://via.placeholder.com/400x200" alt="Megazord Placeholder" className="megazord-image" />
-        <p><strong>Pilot(s):</strong> Mighty Morphin Power Rangers</p>
-        <p><strong>Zords:</strong> Tyrannosaurus Dinozord (Red Ranger), Pterodactyl Dinozord (Pink Ranger), Triceratops Dinozord (Blue Ranger), Sabertooth Tiger Dinozord (Yellow Ranger), Mastodon Dinozord (Black Ranger)</p>
-        <p><strong>Description:</strong> The Mighty Morphin Megazord is the first and arguably most iconic Megazord in the Power Rangers franchise. Formed by the combination of the five Dinozords, it represents the ultimate fighting force against Rita Repulsa's monsters.</p>
-        <p><strong>Special Attacks:</strong> Power Sword</p>
-      </div>
+  console.log("Megazords:", megazords);
+
+  // 3. Return JSX
+  return (
+    <div className="megazord-detail-container">
+      <h1>Megazord Arsenal</h1>
+
+      {!megazords || !megazords.length ? (
+        <h2>No Megazords Available</h2>
+      ) : (
+        <ul className="megazord-list">
+          {megazords.map((megazord) => (
+            <li key={megazord._id} className="megazord-info">
+              <h2>{megazord.name}</h2>
+              <img
+                src={megazord.pictureLink || "https://via.placeholder.com/400x200"}
+                alt={`${megazord.name} image`}
+                className="megazord-image"
+              />
+              <p><strong>Combined Form:</strong> {megazord.combinedMegazord}</p>
+              <p>
+                <strong>First Appeared In:</strong>{" "}
+                {megazord.firstAppearedInSeason?.name || "Unknown Season"}
+              </p>
+              <p>
+                <strong>Pilot(s):</strong>{" "}
+                {megazord.pilotedBy?.length
+                  ? megazord.pilotedBy.map(ranger => ranger.name).join(", ")
+                  : "Unknown"}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-    )
-  };
-  export default Megazord;
+  );
+};
+
+// 4. Export component
+export default Megazord;
