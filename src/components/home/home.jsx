@@ -1,4 +1,5 @@
 // Home.jsx
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './Home.css';
 
@@ -20,7 +21,7 @@ const Home = (props) => {
 ) : (
   <ul>
     {props.seasons.map((season) => (
-      <li key={season._id} ><strong>Season: </strong> <a href=""style={{ cursor: 'pointer', color: "#646CFF" }} onClick={()=> alert('you clicked')}>{season.name}</a></li>
+      <li key={season._id} ><strong>Season: </strong> <Link to="/season"style={{ cursor: 'pointer', color: "#646CFF" }} onClick={()=> props.handlesSelect(season)}>{season.name}</Link></li>
     ))}
   </ul>
 )}

@@ -43,6 +43,7 @@ const App = ()=> {
   }, []);
 
   return (
+  <>
     <Router>
       <NavBar />
       <Routes>
@@ -54,6 +55,8 @@ const App = ()=> {
       </Routes>
       <Footer />
     </Router>
+     <Season selected={selected} />
+     </>
   );
 }
 
