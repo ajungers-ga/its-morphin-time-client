@@ -12,15 +12,6 @@ import { getAllRangers } from './services/rangerService'; // added by AJ, updati
 
 const App = ()=> {
   const [seasons, setSeasons] = useState([]);
-  // src/App.jsx
-
-  const [selected, setSelected] = useState(null);
-
-  const handleSelect =(selected) =>{
-    setSelected(selected)
-
-  }
-
   const [rangers, setRangers] = useState([]); // added by AJ, updating connection to backend
 
   useEffect(() => {
