@@ -1,4 +1,7 @@
 /* Home.css */
+@import url("https://fonts.googleapis.com/css2?family=Jockey+One&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet");
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
 .home-container {
     display: flex;
     justify-content: center;
@@ -53,4 +56,10 @@
   
   .search-bar button[type="submit"]:hover {
     background-color: #f48c06;
+  }
+
+  .welcome-content h1 {
+    font-family: "Jockey One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   }
