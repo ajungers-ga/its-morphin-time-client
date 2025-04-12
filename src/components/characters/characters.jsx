@@ -1,18 +1,40 @@
-import React from 'react';
-import './CharacterDetail.css';
+// File Purpose: This component displays a list of Power Rangers characters from the backend
+// Added by AJ - handles ranger rendering logic on the /characters route. following angels logic from Home
 
-const Characters = () => {
-    return (
-      <div className="character-detail-container">
-      <div className="character-info">
-        <img src="https://via.placeholder.com/200" alt="Character Placeholder" className="character-image" />
-        <h2>Tommy Oliver</h2>
-        <p><strong>Ranger Color:</strong> Green (later White)</p>
-        <p><strong>Season(s):</strong> Mighty Morphin Power Rangers, Power Rangers Zeo, Power Rangers Turbo, Power Rangers Wild Force, Power Rangers Dino Thunder, Power Rangers Super Megaforce</p>
-        <p><strong>Zord(s):</strong> Dragonzord, Tigerzord, Falconzord, White Tigerzord, Dino Stegazord, Black Dino Stegozord, Super Dino Megazord, Legendary Megazord</p>
-        <p><strong>Description:</strong> Tommy Oliver is arguably the most iconic Power Ranger of all time. Starting as the evil Green Ranger, he eventually becomes the leader of the Mighty Morphin team as the White Ranger. He appears in multiple seasons, showcasing his incredible fighting skills and unwavering heroism.</p>
-      </div>
+// 1. Import dependencies
+import React from 'react';
+import "./CharacterDetail.css";
+
+
+// 2.1. Define the component function and accept props
+const Characters = (props) => {
+   
+  console.log(props.rangers);
+
+  // 3. Return some JSX
+  return (
+    <div className="characters-container">
+      <h1>Meet the Power Rangers</h1>
+      {!props.rangers.length ? (
+        <h2>No Rangers Available</h2>
+      ) : (
+        <ul className="ranger-list">
+          {props.rangers.map((ranger) => (
+            <li key={ranger._id} className="ranger-card">
+              <h2>{ranger.name}</h2>
+              <p><strong>Color:</strong> {ranger.color}</p>
+              <p><strong>Actor:</strong> {ranger.actor}</p>
+              <p><strong>Zord(s):</strong> {ranger.zord.join(', ')}</p>
+              <p><strong>First Appearance:</strong> {ranger.firstAp}</p>
+              <p><strong>Last Appearance:</strong> {ranger.lastAp}</p>
+              <p><strong>Season:</strong> {ranger.season?.name || 'Unknown'}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-    )
-  };
-  export default Characters;
+  );
+};
+
+// 4. Export the component
+export default Characters;
