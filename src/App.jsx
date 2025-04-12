@@ -13,6 +13,16 @@ import { getAllRangers } from './services/rangerService'; // added by AJ, updati
 
 const App = ()=> {
   const [seasons, setSeasons] = useState([]);
+  // src/App.jsx
+
+  const [selected, setSelected] = useState(null);
+
+  const handleSelect =(selected) =>{
+    setSelected(selected)
+
+  }
+
+  const [rangers, setRangers] = useState([]); // added by AJ, updating connection to backend
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -47,9 +57,9 @@ const App = ()=> {
       <Routes>
         <Route path="/" element={<Home seasons={seasons}/>} />
         <Route path="/season" element={<Season />} />
-        <Route path="/characters" element={<Characters />} />
+        <Route path="/characters" element={<Characters rangers={rangers} />} />
         <Route path="/megazord" element={<Megazord />} />
-        <Route path="/services" element={<Services />} />
+        {/* <Route path="/services" element={<Services />} /> */}
       </Routes>
       <Footer />
     </Router>
