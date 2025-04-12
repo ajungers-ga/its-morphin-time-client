@@ -57,7 +57,7 @@ const App = ()=> {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home seasons={seasons}  handleSelect={handleSelect}/>} />
-        <Route path="/season" element={<Season />} />
+        <Route path="/season" element={<Season selected={selected}/>} />
         <Route path="/characters" element={<Characters rangers={rangers} />} />
         <Route path="/megazord" element={<Megazord />} />
         {/* <Route path="/services" element={<Services />} /> */}
