@@ -1,7 +1,14 @@
 import React from 'react';
 import './SeasonDetail.css';
 
-const Season = () => {
+const Season = (props) => {
+  if (!props.selected) {
+    return (
+      <div>
+        <h1>NO DETAILS</h1>
+      </div>
+    );
+  }
     return (<>
     <div className="season-detail-container">
       <div className="season-info">
