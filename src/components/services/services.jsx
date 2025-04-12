@@ -1,32 +1,26 @@
 // src/components/services/services.jsx
 
-// 1. Import dependencies
-// src/services/petService.js
-
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/seasons`;
 
-const index = async () => {
+const fetchSeasons = async () => {
   try {
     const res = await fetch(BASE_URL);
-    return res.json();
+    const data = await res.json(); // Make sure to parse the response body as JSON
+    return data;
   } catch (err) {
-    console.log(err);
+    console.error("Error fetching seasons in services:", err);
+    return { err: "Failed to fetch seasons" }; // Return an error object
   }
 };
 
-console.log(await index());
-
+console.log(await fetchSeasons()); // You can remove this line, as the component will handle the data
 
 export {
-  index,
+  fetchSeasons,
 };
 
-
-
-
-// 2. Define the Services page
+// 2. Define the Services page (This part remains the same as you are not using it to fetch seasons in App.jsx)
 const Services = () => {
-  // 3. Return some JSX
   return (
     <div>
       <h1>Power Ranger Services</h1>
@@ -35,5 +29,4 @@ const Services = () => {
   );
 };
 
-// 4. Export the component
 export default Services;
