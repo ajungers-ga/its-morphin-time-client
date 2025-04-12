@@ -2,7 +2,10 @@
 import React from 'react';
 import './Home.css';
 
-const Home = () => {
+const Home = (props) => {
+
+  console.log(props);
+
   return (
     <div className="home-container">
       <div className="welcome-content">
@@ -12,6 +15,16 @@ const Home = () => {
           <input type="text" placeholder="Search for your favorite season or Ranger..." />
           <button type="submit">Search</button>
         </div>
+        <div>{!props.seasons.length ? (
+  <h2>No seasons</h2>
+) : (
+  <ul>
+    {props.seasons.map((season) => (
+      <li key={season._id}>{season.name}</li>
+    ))}
+  </ul>
+)}
+</div>
       </div>
     </div>
   );

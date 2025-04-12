@@ -7,15 +7,33 @@ import Home from './components/home/home';
 import Season from './components/season/season';
 import Characters from './components/characters/characters';
 import Megazord from './components/megazord/megazord';
-import Services from './components/services/services'; 
+import * as Services from './components/services/services';
 import Footer from './components/footer/footer';
 
-function App() {
+const App = ()=> {
+  const [seasons, setSeasons] = useState([]);
+
+  useEffect(() => {
+    const fetchSeasons = async () => {
+      try {
+        const fetchedSeasons = await Services.fetchSeasons(); // Assuming you have a 'fetchSeasons' function in your services
+        if (fetchedSeasons && fetchedSeasons.err) {
+          throw new Error(fetchedSeasons.err);
+        }
+        setSeasons(fetchedSeasons || []);
+      } catch (err) {
+        console.error("Error fetching seasons:", err);
+      }
+    };
+
+    fetchSeasons();
+  }, []);
+
   return (
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home seasons={seasons}/>} />
         <Route path="/season" element={<Season />} />
         <Route path="/characters" element={<Characters />} />
         <Route path="/megazord" element={<Megazord />} />
