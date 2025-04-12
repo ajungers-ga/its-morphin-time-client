@@ -3,7 +3,7 @@
 // 1. Import dependencies
 // src/services/petService.js
 
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/rangers`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/seasons`;
 
 const index = async () => {
   try {
