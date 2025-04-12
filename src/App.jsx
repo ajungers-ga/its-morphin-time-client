@@ -1,4 +1,3 @@
-// src/App.jsx
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/navbar/navbar';
@@ -8,12 +7,14 @@ import Characters from './components/characters/characters';
 import Megazord from './components/megazord/megazord';
 import * as Services from './components/services/services';
 import Footer from './components/footer/footer';
-import { getAllRangers } from './services/rangerService'; // added by AJ, updating connection to backend
+import { getAllRangers } from './services/rangerService';
+import { getAllMegazords } from './services/megazordService';
 
-const App = ()=> {
+const App = () => {
   const [seasons, setSeasons] = useState([]);
   const [rangers, setRangers] = useState([]);
-  const [selected, setSelected] = useState(null); // added by AJ, updating connection to backend
+  const [megazords, setMegazords] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -28,7 +29,6 @@ const App = ()=> {
       }
     };
 
-    // BELOW = added by AJ, updating connection to backend
     const fetchRangers = async () => {
       try {
         const fetchedRangers = await getAllRangers();
@@ -38,14 +38,22 @@ const App = ()=> {
       }
     };
 
+    const fetchMegazords = async () => {
+      try {
+        const fetchedMegazords = await getAllMegazords();
+        setMegazords(fetchedMegazords || []);
+      } catch (err) {
+        console.error("Error fetching megazords:", err);
+      }
+    };
+
     fetchSeasons();
-    fetchRangers(); // added by AJ, updating connection to backend
+    fetchRangers();
+    fetchMegazords();
   }, []);
 
   const handleSelect = (selected) => {
     setSelected(selected);
-    // Close the form if it's open when a new pet is selected.
-    setIsFormOpen(false);
   };
 
   const handleFormView = () => {
@@ -53,20 +61,19 @@ const App = ()=> {
   };
 
   return (
-  <>
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home seasons={seasons}  handleSelect={handleSelect}/>} />
-        <Route path="/season" element={<Season selected={selected}/>} />
-        <Route path="/characters" element={<Characters rangers={rangers} />} />
-        <Route path="/megazord" element={<Megazord />} />
-        {/* <Route path="/services" element={<Services />} /> */}
-      </Routes>
-      <Footer />
-    </Router>
-     </>
+    <>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home seasons={seasons} handleSelect={handleSelect} />} />
+          <Route path="/season" element={<Season selected={selected} />} />
+          <Route path="/characters" element={<Characters rangers={rangers} />} />
+          <Route path="/megazord" element={<Megazord megazords={megazords} />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </>
   );
-}
+};
 
 export default App;
