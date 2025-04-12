@@ -1,34 +1,87 @@
-// Home.jsx
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 
-const Home = ({ seasons, handleSelect }) => {
+const Home = ({ seasons, characters }) => {
+  const [searchTerm, setSearchTerm] = useState('');
 
-  console.log(seasons);
+  // Helper to find the season a character belongs to
+  const getSeasonNameById = (seasonId) => {
+    const season = seasons.find((s) => s._id === seasonId);
+    return season ? season.name : 'Unknown Season';
+  };
+
+  // Filtered characters and seasons
+  const filteredCharacters = characters.filter((char) =>
+    char.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredSeasons = seasons.filter((season) =>
+    season.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="home-container">
       <div className="welcome-content">
         <h1>Welcome, Power Rangers Fan!</h1>
-        <p>Ever wondered which Power Rangers team truly reigns supreme? Or maybe you're just trying to remember the name of that one Red Ranger with the really cool sword? Well, you've come to the right place! Go ahead and punch in your favorite season or that unforgettable Ranger. Our database is probably more powerful than the Morphin Grid itself (maybe...). So, what are you waiting for? It's Morphin Time... to search!</p>
+        <p>Search for a Power Ranger or a Season to learn more!</p>
+
+        {/* Search Bar */}
         <div className="search-bar">
-          <input type="text" placeholder="Search for your favorite season or Ranger..." />
-          <button type="submit">Search</button>
-          <div>{!seasons || !seasons.length ? ( // Added a check for seasons being undefined as well
-        <h2>No seasons</h2>
-      ) : (
-        <ul>
-          {seasons.map((season) => (
-            <li key={season._id} ><strong>Season: </strong> <Link to="/season"style={{ cursor: 'pointer', color: "#646CFF" }} onClick={()=> props.handlesSelect(season)}>{season.name}</Link></li>
-          ))}
-        </ul>
-      )}
-      </div>
-</div>
+          <input
+            type="text"
+            placeholder="Search for a character or season..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {searchTerm && (
+          <div className="search-results">
+            <h2>Search Results:</h2>
+
+            {/* Character Results */}
+            {filteredCharacters.length > 0 && (
+              <>
+                <h3>Characters</h3>
+                <ul>
+                  {filteredCharacters.map((char) => (
+                    <li key={char._id}>
+                      <Link to={`/character/${char._id}`} style={{ color: '#646CFF' }}>
+                        {char.name}
+                      </Link>{' '}
+                      - {getSeasonNameById(char.seasonId)}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {/* Season Results */}
+            {filteredSeasons.length > 0 && (
+              <>
+                <h3>Seasons</h3>
+                <ul>
+                  {filteredSeasons.map((season) => (
+                    <li key={season._id}>
+                      <Link to={`/season/${season._id}`} style={{ color: '#646CFF' }}>
+                        {season.name}
+                      </Link>{' '}
+                      ({season.airingYear}) - {season.theme}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {filteredCharacters.length === 0 && filteredSeasons.length === 0 && (
+              <p>No matches found.</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default Home;

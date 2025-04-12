@@ -1,32 +1,81 @@
 // src/components/services/services.jsx
 
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/seasons`;
+const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
+// Seasons
 const fetchSeasons = async () => {
   try {
-    const res = await fetch(BASE_URL);
-    const data = await res.json(); // Make sure to parse the response body as JSON
+    const res = await fetch(`${BASE_URL}/seasons`);
+    const data = await res.json();
     return data;
   } catch (err) {
-    console.error("Error fetching seasons in services:", err);
-    return { err: "Failed to fetch seasons" }; // Return an error object
+    console.error("Error fetching seasons:", err);
+    return { err: "Failed to fetch seasons" };
   }
 };
 
-console.log(await fetchSeasons()); // You can remove this line, as the component will handle the data
+const fetchSeasonDetails = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}/seasons/${id}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching season details:", err);
+    return { err: "Failed to fetch season details" };
+  }
+};
+
+// Characters (Rangers)
+const fetchCharacters = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/rangers`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching characters:", err);
+    return { err: "Failed to fetch characters" };
+  }
+};
+
+const fetchCharacterDetails = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}/rangers/${id}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching character details:", err);
+    return { err: "Failed to fetch character details" };
+  }
+};
+
+// Megazords
+const fetchMegazords = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/megazords`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching megazords:", err);
+    return { err: "Failed to fetch megazords" };
+  }
+};
+
+const fetchMegazordDetails = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}/megazords/${id}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching megazord details:", err);
+    return { err: "Failed to fetch megazord details" };
+  }
+};
 
 export {
   fetchSeasons,
+  fetchSeasonDetails,
+  fetchCharacters,
+  fetchCharacterDetails,
+  fetchMegazords,
+  fetchMegazordDetails,
 };
-
-// 2. Define the Services page (This part remains the same as you are not using it to fetch seasons in App.jsx)
-const Services = () => {
-  return (
-    <div>
-      <h1>Power Ranger Services</h1>
-      <p>This page will show backend-connected services like training, zord upgrades, etc.</p>
-    </div>
-  );
-};
-
-export default Services;

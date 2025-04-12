@@ -1,23 +1,21 @@
-// 1. Import dependencies
+// src/components/navbar/NavBar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./navbar.css";
 
-// 2. Define the NavBar component
 const NavBar = () => {
-  // 3. Return some JSX
   return (
     <nav className="power-rangers-nav">
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/season">Season</Link></li>
+        <li><Link to="/season">Seasons</Link></li>
         <li><Link to="/characters">Characters</Link></li>
-        <li><Link to="/megazord">Megazord</Link></li>
-        <li><Link to="/services">Services</Link></li>
+        <li><Link to="/megazords">Megazords</Link></li>
+        {/* Uncomment below if you add a Services page */}
+        {/* <li><Link to="/services">Services</Link></li> */}
       </ul>
     </nav>
   );
 };
 
-// 4. Export the component
 export default NavBar;

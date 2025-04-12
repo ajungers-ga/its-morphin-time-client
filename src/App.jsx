@@ -4,69 +4,57 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
 import Season from './components/season/season';
-import Characters from './components/characters/characters';
-import Megazord from './components/megazord/megazord';
+import SeasonList from './components/season/SeasonList';
+import CharactersPage from './components/characters/CharactersPage'; // Rename if needed
+import CharacterDetail from './components/characters/CharacterDetail'; // Create this component
+import MegazordPage from './components/megazord/MegazordPage'; // Rename if needed
+import MegazordDetail from './components/megazord/MegazordDetail'; // Create this component
 import * as Services from './components/services/services';
 import Footer from './components/footer/footer';
-import { getAllRangers } from './services/rangerService'; // added by AJ, updating connection to backend
 
-const App = ()=> {
+const App = () => {
   const [seasons, setSeasons] = useState([]);
-  const [rangers, setRangers] = useState([]);
-  const [selected, setSelected] = useState(null); // added by AJ, updating connection to backend
+  const [characters, setCharacters] = useState([]);
+  const [megazords, setMegazords] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    const fetchSeasons = async () => {
-      try {
-        const fetchedSeasons = await Services.fetchSeasons();
-        if (fetchedSeasons && fetchedSeasons.err) {
-          throw new Error(fetchedSeasons.err);
-        }
-        setSeasons(fetchedSeasons || []);
-      } catch (err) {
-        console.error("Error fetching seasons:", err);
-      }
+    const loadData = async () => {
+      const fetchedSeasons = await Services.fetchSeasons();
+      if (!fetchedSeasons.err) setSeasons(fetchedSeasons);
+      const fetchedCharacters = await Services.fetchCharacters();
+      if (!fetchedCharacters.err) setCharacters(fetchedCharacters);
+      const fetchedMegazords = await Services.fetchMegazords();
+      if (!fetchedMegazords.err) setMegazords(fetchedMegazords);
     };
 
-    // BELOW = added by AJ, updating connection to backend
-    const fetchRangers = async () => {
-      try {
-        const fetchedRangers = await getAllRangers();
-        setRangers(fetchedRangers || []);
-      } catch (err) {
-        console.error("Error fetching rangers:", err);
-      }
-    };
-
-    fetchSeasons();
-    fetchRangers(); // added by AJ, updating connection to backend
+    loadData();
   }, []);
 
-  const handleSelect = (selected) => {
-    setSelected(selected);
-    // Close the form if it's open when a new pet is selected.
-    setIsFormOpen(false);
-  };
-
-  const handleFormView = () => {
-    setIsFormOpen(!isFormOpen);
+  const handleSelect = (item) => {
+    setSelected(item);
   };
 
   return (
-  <>
+    
     <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home seasons={seasons}  handleSelect={handleSelect}/>} />
-        <Route path="/season" element={<Season selected={selected}/>} />
-        <Route path="/characters" element={<Characters rangers={rangers} />} />
-        <Route path="/megazord" element={<Megazord />} />
-        {/* <Route path="/services" element={<Services />} /> */}
-      </Routes>
-      <Footer />
-    </Router>
-     </>
+    <NavBar />
+    <Routes>
+      <Route
+        path="/"
+        element={<Home seasons={seasons} characters={characters} megazords={megazords} />}
+      />
+      <Route path="/season" element={<SeasonList />} />
+      <Route path="/season/:id" element={<Season />} />
+      <Route path="/character/:id" element={<CharacterDetail />} />
+      <Route path="/characters" element={<CharactersPage characters={characters} />} />
+      <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
+      <Route path="/megazord/:id" element={<MegazordDetail />} />
+    </Routes>
+    <Footer />
+  </Router>
+  
   );
-}
+};
 
 export default App;

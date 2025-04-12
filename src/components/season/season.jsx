@@ -1,38 +1,58 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import * as Services from '../services/services';
 import './SeasonDetail.css';
 
-const Season = ({ selected }) => {
-  if (!selected) {
-    return (
-      <div>
-        <h1>NO DETAILS</h1>
-      </div>
-    );
+const Season = () => {
+  const { id } = useParams();
+  const [seasonDetails, setSeasonDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      setLoading(true);
+      setError(null);
+      const data = await Services.fetchSeasonDetails(id);
+      if (data && !data.err) {
+        setSeasonDetails(data);
+      } else {
+        setError(data ? data.err : 'Failed to load season details.');
+      }
+      setLoading(false);
+    };
+
+    fetchDetails();
+  }, [id]);
+
+  if (loading) {
+    return <div>Loading season details...</div>;
   }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!seasonDetails) {
+    return <div>No season details found.</div>;
+  }
+
   return (
     <div className="season-detail-container">
       <div className="season-info">
-        <h1>{selected.name} (Season {selected.seasonNumber})</h1>
-        <img src="https://via.placeholder.com/300x150" alt={selected.name} className="season-image" />
-        <p><strong>First Aired:</strong> {selected.firstEpisode}</p>
-        <p><strong>Number of Episodes:</strong> {selected.numberOfEpisodes}</p>
-        <p><strong>Synopsis:</strong> {selected.theme}</p> {/* Assuming 'theme' can act as a synopsis */}
-        <p><strong>Key Characters:</strong> {/* You might need a way to access character data here */}
-          {selected.rangers && selected.rangers.length > 0 ? selected.rangers.join(', ') : 'No rangers listed'}
-        </p>
+        <h1>{seasonDetails.name} (Season {seasonDetails.seasonNumber})</h1>
+        {/* Add image logic if available in your backend data */}
+        <p><strong>Sentai Name:</strong> {seasonDetails.sentaiName}</p>
+        <p><strong>Airing Year:</strong> {seasonDetails.airingYear}</p>
+        <p><strong>Number of Episodes:</strong> {seasonDetails.numberOfEpisodes}</p>
+        <p><strong>First Episode:</strong> {seasonDetails.firstEpisode}</p>
+        <p><strong>Last Episode:</strong> {seasonDetails.lastEpisode}</p>
+        <p><strong>Theme:</strong> {seasonDetails.theme}</p>
+        <p><strong>Producer:</strong> {seasonDetails.producer}</p>
+        <p><strong>Rangers:</strong> {seasonDetails.rangers ? seasonDetails.rangers.join(', ') : 'N/A'}</p>
       </div>
-      <div>
-        <p><strong>Name:</strong> {selected.name}</p>
-        <p><strong>Sentai Name:</strong> {selected.sentaiName}</p>
-        <p><strong>Airing Year:</strong> {selected.airingYear}</p>
-        <p><strong>Season Number:</strong> {selected.seasonNumber}</p>
-        <p><strong>Number of Episodes:</strong> {selected.numberOfEpisodes}</p>
-        <p><strong>First Episode:</strong> {selected.firstEpisode}</p>
-        <p><strong>Last Episode:</strong> {selected.lastEpisode}</p>
-        <p><strong>Theme:</strong> {selected.theme}</p>
-        <p><strong>Producer:</strong> {selected.producer}</p>
-        <p><strong>Rangers:</strong> {selected.rangers.join(', ')}</p>
-      </div>
+      {/* You can add more detail display here */}
     </div>
   );
 };
