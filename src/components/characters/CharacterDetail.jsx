@@ -2,9 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Services from '../services/services';
+<<<<<<< HEAD
 // Import the correct CSS for the characters list page.
 // (Ensure you have a CharactersPage.css file; if not, create one or remove this import.)
 import './CharacterDetail.css';
+=======
+import './CharacterDetail.css'; // Ensure this CSS file exists
+>>>>>>> parent of 3426338 (Merge branch 'main' of https://github.com/ajungers-ga/its-morphin-time-client)
 
 const CharactersPage = ({ characters }) => {
   const [charList, setCharList] = useState(characters || []);
@@ -21,6 +25,7 @@ const CharactersPage = ({ characters }) => {
         } else {
           setError(data ? data.err : 'Failed to load characters.');
         }
+<<<<<<< HEAD
         setLoading(false);
       };
       fetchAllCharacters();
@@ -29,6 +34,28 @@ const CharactersPage = ({ characters }) => {
 
   if (loading) return <div>Loading characters...</div>;
   if (error) return <div>Error: {error}</div>;
+=======
+      } catch (err) {
+        setError("An error occurred while fetching details.");
+      }
+      setLoading(false);
+    };
+
+    fetchDetails();
+  }, [id]);
+
+  if (loading) {
+    return <div>Loading character details...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!characterDetails) {
+    return <div>No character details found.</div>;
+  }
+>>>>>>> parent of 3426338 (Merge branch 'main' of https://github.com/ajungers-ga/its-morphin-time-client)
 
   return (
     <div className="character-detail-container">
@@ -76,6 +103,7 @@ const CharactersPage = ({ characters }) => {
           "Unknown Season"
         )}
       </p>
+<<<<<<< HEAD
     <div className="characters-page-container">
       <h1>Power Rangers Characters</h1>
       <ul className="characters-list">
@@ -86,8 +114,14 @@ const CharactersPage = ({ characters }) => {
           </li>
         ))}
       </ul>
+=======
+>>>>>>> parent of 3426338 (Merge branch 'main' of https://github.com/ajungers-ga/its-morphin-time-client)
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default CharactersPage;
+=======
+export default CharacterDetail;
+>>>>>>> parent of 3426338 (Merge branch 'main' of https://github.com/ajungers-ga/its-morphin-time-client)
