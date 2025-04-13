@@ -1,96 +1,81 @@
-// src/components/characters/CharactersPage.jsx
+// src/components/characters/CharacterDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import * as Services from '../services/services'
-import { getAllRangers } from '../../services/rangerService';
-import { getAllMegazords } from '../../services/megazordService';
-import './CharacterDetail.css'; // Ensure this CSS file exists
+import { useParams, Link } from 'react-router-dom';
+import * as Services from '../services/services';
+import './CharacterDetail.css';
 
-const CharacterDetail = ({ characters }) => {
-  const [charList, setCharList] = useState(characters || []);
+const CharacterDetail = () => {
+  const { id } = useParams(); // Get the character ID from the URL
+  const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!characters || characters.length === 0) {
-      const fetchAllCharacters = async () => {
-        setLoading(true);
-        const data = await Services.fetchCharacters();
-        if (data && !data.err) {
-          setCharList(data);
-        } else {
-          setError(data ? data.err : 'Failed to load characters.');
-        }
-        setLoading(false);
-      };
-      fetchAllCharacters();
-    }
-  }, [characters]);
+    const fetchCharacter = async () => {
+      setLoading(true);
+      // Use the dedicated fetch for character details rather than fetching the whole list
+      const data = await Services.fetchCharacterDetails(id);
+      if (data && !data.err) {
+        setCharacter(data);
+      } else {
+        setError(data ? data.err : 'Failed to load character details.');
+      }
+      setLoading(false);
+    };
 
-  if (loading) return <div>Loading characters...</div>;
+    fetchCharacter();
+  }, [id]);
+
+  if (loading) return <div>Loading character...</div>;
   if (error) return <div>Error: {error}</div>;
+  if (!character) return <div>No character found.</div>;
 
   return (
-    <div className="characters-page-container">
-      {/* Assuming you want to display the first character as details */}
-      {charList.length > 0 && (
-        <div className="character-detail-container">
-          <h1>{charList[0].name}</h1>
-          {charList[0].fullName && (
-            <p>
-              <strong>Full Name:</strong> {charList[0].fullName}
-            </p>
-          )}
-          <p>
-            <strong>Color:</strong> {charList[0].color || "Unknown Color"}
-          </p>
-          <p>
-            <strong>Gender:</strong> {charList[0].gender || "N/A"}
-          </p>
-          <p>
-            <strong>Zords:</strong>{" "}
-            {charList[0].zord && charList[0].zord.length > 0
-              ? charList[0].zord.join(', ')
-              : "N/A"}
-          </p>
-          <p>
-            <strong>Homeworld:</strong> {charList[0].homeworld || "N/A"}
-          </p>
-          <p>
-            <strong>First Appearance:</strong> {charList[0].firstAp || "N/A"}
-          </p>
-          <p>
-            <strong>Last Appearance:</strong> {charList[0].lastAp || "N/A"}
-          </p>
-          <p>
-            <strong>Number of Appearances:</strong> {charList[0].numberOfAp || "N/A"}
-          </p>
-          <p>
-            <strong>Actor:</strong> {charList[0].actor || "N/A"}
-          </p>
-          <p>
-            <strong>Season:</strong>{" "}
-            {charList[0].season ? (
-              // Link to the SeasonDetail page using the populated season object
-              <Link to={`/seasons/${charList[0].season._id || charList[0].season}`}>
-                {charList[0].season.name || charList[0].season}
-              </Link>
-            ) : (
-              "Unknown Season"
-            )}
-          </p>
-        </div>
+    <div className="character-detail-container">
+      <h1>{character.name}</h1>
+      {character.fullName && (
+        <p>
+          <strong>Full Name:</strong> {character.fullName}
+        </p>
       )}
-
-      <h1>Power Rangers Characters</h1>
-      <ul className="characters-list">
-        {charList.map((character) => (
-          <li key={character._id} className="character-item">
-            {/* Use template literals (backticks) to build the dynamic path */}
-            <Link to={`/characters/${character._id}`}>{character.name}</Link>
-          </li>
-        ))}
-      </ul>
+      <p>
+        <strong>Color:</strong> {character.color || "Unknown Color"}
+      </p>
+      <p>
+        <strong>Gender:</strong> {character.gender || "N/A"}
+      </p>
+      <p>
+        <strong>Zords:</strong>{" "}
+        {character.zord && character.zord.length > 0
+          ? character.zord.join(', ')
+          : "N/A"}
+      </p>
+      <p>
+        <strong>Homeworld:</strong> {character.homeworld || "N/A"}
+      </p>
+      <p>
+        <strong>First Appearance:</strong> {character.firstAp || "N/A"}
+      </p>
+      <p>
+        <strong>Last Appearance:</strong> {character.lastAp || "N/A"}
+      </p>
+      <p>
+        <strong>Number of Appearances:</strong> {character.numberOfAp || "N/A"}
+      </p>
+      <p>
+        <strong>Actor:</strong> {character.actor || "N/A"}
+      </p>
+      <p>
+        <strong>Season:</strong>{" "}
+        {character.season ? (
+          <Link to={`/seasons/${character.season._id || character.season}`}>
+            {character.season.name || character.season}
+          </Link>
+        ) : (
+          "Unknown Season"
+        )}
+      </p>
+      <Link to="/characters">← Back to Characters</Link>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/navbar/NavBar';
-import Home from './components/home/Home';
+import Home from './components/home/home';
 import SeasonList from './components/season/SeasonList';
 import SeasonDetail from './components/season/SeasonDetail';
 import CharactersPage from './components/characters/CharactersPage';

@@ -49,6 +49,7 @@ const SeasonDetail = () => {
         <p><strong>Last Episode:</strong> {seasonDetails.lastEpisode}</p>
         <p><strong>Theme:</strong> {seasonDetails.theme}</p>
         <p><strong>Producer:</strong> {seasonDetails.producer}</p>
+        <p><strong>Characters:</strong> {seasonDetails.ranger}</p>
         
         {/* Display Characters (Rangers) if available */}
         {seasonDetails.rangers && seasonDetails.rangers.length > 0 ? (
