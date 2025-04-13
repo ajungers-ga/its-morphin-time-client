@@ -1,32 +1,36 @@
 /* navbar.css */
 .power-rangers-nav {
-    background-color: #111;
-    padding: 20px 0;
-    text-align: center;
-  }
-  
-  .nav-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-links a {
-    color: #f9a825; /* Gold Power Rangers color */
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 15px;
-  }
-  
-  .nav-links a:hover {
-    color: #fff;
-    border-radius: 15px;
-    border: solid 1px white;
-    background-color: #f9a825;
-    padding: 5px 15px;
-  }
+  background-color: #111;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Goldman", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.nav-links a {
+  color: #f9a825;
+  /* Gold Power Rangers color */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 15px;
+}
+
+.nav-links a:hover {
+  color: #fff;
+  border-radius: 15px;
+  border: solid 1px white;
+  background-color: #f9a825;
+  padding: 5px 15px;
+}
