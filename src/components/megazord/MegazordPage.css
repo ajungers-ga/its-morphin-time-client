@@ -1,0 +1,25 @@
+/* src/components/megazord/MegazordPage.css */
+.megazords-page-container {
+    padding: 20px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  .megazords-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .megazord-item {
+    margin-bottom: 15px;
+  }
+  
+  .megazord-item a {
+    text-decoration: none;
+    color: #ff9800;
+    font-size: 1.2rem;
+  }
+  
+  .megazord-item a:hover {
+    text-decoration: underline;
+  }
+  

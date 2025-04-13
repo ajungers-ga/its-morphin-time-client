@@ -1,8 +1,8 @@
 // src/components/megazord/MegazordDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { useParams, Link } from 'react-router-dom';
 import * as Services from '../services/services';
-import './MegazordDetail.css'; // Ensure this CSS file exists and styles your component
+import './MegazordDetail.css';
 
 const MegazordDetail = () => {
   const { id } = useParams();
@@ -16,12 +16,14 @@ const MegazordDetail = () => {
       setError(null);
       try {
         const data = await Services.fetchMegazordDetails(id);
+        console.log("Fetched megazord details:", data);
         if (data && !data.err) {
           setMegazordDetails(data);
         } else {
           setError(data ? data.err : 'Failed to load megazord details.');
         }
       } catch (err) {
+        console.error("Error in fetchMegazordDetails:", err);
         setError("An error occurred while fetching details.");
       }
       setLoading(false);
@@ -30,46 +32,47 @@ const MegazordDetail = () => {
     fetchDetails();
   }, [id]);
 
-  if (loading) {
-    return <div>Loading megazord details...</div>;
-  }
+  if (loading) return <div>Loading megazord details...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!megazordDetails) return <div>No megazord details found.</div>;
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!megazordDetails) {
-    return <div>No megazord details found.</div>;
-  }
+  // Debug: Uncomment the following line to inspect the entire megazordDetails object in your browser
+  // console.log(JSON.stringify(megazordDetails, null, 2));
 
   return (
     <div className="megazord-detail-container">
-      <h1>{megazordDetails.name}</h1>
-      <img
-        src={megazordDetails.pictureLink}
-        alt={megazordDetails.name}
-        className="megazord-image"
-      />
-      <p>
-        <strong>First Appeared In Season:</strong>{' '}
-        {megazordDetails.firstAppearedInSeason?.name ||
-          megazordDetails.firstAppearedInSeason ||
-          'Unknown Season'}
-      </p>
-      <p>
-        <strong>Combined Megazord:</strong> {megazordDetails.combinedMegazord}
-      </p>
-      <div>
-        <strong>Piloted By:</strong>
-        <ul>
-          {megazordDetails.pilotedBy &&
-            megazordDetails.pilotedBy.map((ranger) => (
-              <li key={ranger._id}>
-                {/* Link to the character's detail page */}
-                <Link to={`/characters/${ranger._id}`}>{ranger.name}</Link>
-              </li>
-            ))}
-        </ul>
+      <div className="megazord-info">
+        <h1>{megazordDetails.name}</h1>
+        <img
+          src={megazordDetails.pictureLink}
+          alt={megazordDetails.name}
+          className="megazord-image"
+        />
+        <p>
+          <strong>First Appeared In Season:</strong>{' '}
+          {megazordDetails.firstAppearedInSeason && typeof megazordDetails.firstAppearedInSeason === 'object'
+            ? megazordDetails.firstAppearedInSeason.name || 'Unknown Season Name'
+            : megazordDetails.firstAppearedInSeason || 'Unknown Season'}
+        </p>
+        <p>
+          <strong>Combined Megazord:</strong> {megazordDetails.combinedMegazord}
+        </p>
+        <div>
+          <strong>Piloted By:</strong>
+          {megazordDetails.pilotedBy && megazordDetails.pilotedBy.length > 0 ? (
+            <ul>
+              {megazordDetails.pilotedBy.map((ranger) => (
+                <li key={ranger._id}>
+                  <Link to={`/characters/${ranger._id}`}>
+                    {ranger.name || "Unnamed Ranger"}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No pilot information available.</p>
+          )}
+        </div>
       </div>
     </div>
   );

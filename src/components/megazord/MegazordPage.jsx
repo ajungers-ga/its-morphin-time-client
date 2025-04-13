@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Services from '../services/services';
-import './MegazordDetail.css'; // You can create this CSS file for styling
+import './MegazordPage.css'; // Use a separate CSS file for your list page
 
 const MegazordPage = ({ megazords: initialMegazords }) => {
   const [megazords, setMegazords] = useState(initialMegazords);
@@ -44,10 +44,8 @@ const MegazordPage = ({ megazords: initialMegazords }) => {
         <ul className="megazords-list">
           {megazords.map((megazord) => (
             <li key={megazord._id} className="megazord-item">
-            {/* --- FIX SIMILAR TO CHARACTERS PAGE --- */}
-            <Link to={`/megazords/${megazord._id}`}>{megazord.name}</Link>
-            {/* ------------------------------------ */}
-          </li>
+              <Link to={`/megazords/${megazord._id}`}>{megazord.name}</Link>
+            </li>
           ))}
         </ul>
       )}
