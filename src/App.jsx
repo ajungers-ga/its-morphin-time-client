@@ -8,7 +8,7 @@ import SeasonDetail from './components/season/SeasonDetail';
 import CharactersPage from './components/characters/CharactersPage';
 import CharacterDetail from './components/characters/CharacterDetail';
 import MegazordPage from './components/megazord/MegazordPage';
-import MegazordDetail from './components/megazord/MegazordDetail'
+import MegazordDetail from './components/megazord/MegazordDetail';
 import * as Services from './components/services/services';
 import Footer from './components/footer/footer';
 import { getAllRangers } from './services/rangerService';
@@ -60,8 +60,9 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
-        <Route path="/season" element={<SeasonList />} />
-        <Route path="/season/:id" element={<SeasonDetail />} />
+        {/* Updated Season routes to plural for consistency */}
+        <Route path="/seasons" element={<SeasonList />} />
+        <Route path="/seasons/:id" element={<SeasonDetail />} />
         <Route path="/characters" element={<CharactersPage characters={rangers} />} />
         <Route path="/characters/:id" element={<CharacterDetail />} />
         <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />

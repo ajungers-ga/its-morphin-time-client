@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'; // Import Link for navigation
 import * as Services from '../services/services';
-import './CharacterDetail.css'; // Import CSS once
+import './CharacterDetail.css'; // Ensure this CSS file exists
 
 const CharacterDetail = () => {
   const { id } = useParams();
@@ -45,16 +45,42 @@ const CharacterDetail = () => {
   return (
     <div className="character-detail-container">
       <h1>{characterDetails.name}</h1>
+      {characterDetails.fullName && (
+        <p>
+          <strong>Full Name:</strong> {characterDetails.fullName}
+        </p>
+      )}
       <p>
         <strong>Color:</strong> {characterDetails.color || "Unknown Color"}
       </p>
       <p>
-        <strong>Role:</strong> {characterDetails.role || "Unknown Role"}
+        <strong>Gender:</strong> {characterDetails.gender || "N/A"}
+      </p>
+      <p>
+        <strong>Zords:</strong>{" "}
+        {characterDetails.zord && characterDetails.zord.length > 0
+          ? characterDetails.zord.join(', ')
+          : "N/A"}
+      </p>
+      <p>
+        <strong>Homeworld:</strong> {characterDetails.homeworld || "N/A"}
+      </p>
+      <p>
+        <strong>First Appearance:</strong> {characterDetails.firstAp || "N/A"}
+      </p>
+      <p>
+        <strong>Last Appearance:</strong> {characterDetails.lastAp || "N/A"}
+      </p>
+      <p>
+        <strong>Number of Appearances:</strong> {characterDetails.numberOfAp || "N/A"}
+      </p>
+      <p>
+        <strong>Actor:</strong> {characterDetails.actor || "N/A"}
       </p>
       <p>
         <strong>Season:</strong>{" "}
         {characterDetails.season ? (
-          // Assume season is an object with _id and name properties when populated.
+          // Link to the SeasonDetail page using the populated season object
           <Link to={`/seasons/${characterDetails.season._id || characterDetails.season}`}>
             {characterDetails.season.name || characterDetails.season}
           </Link>

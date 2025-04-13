@@ -47,7 +47,7 @@ const Home = ({ seasons, characters }) => {
                 <ul>
                   {filteredCharacters.map((char) => (
                     <li key={char._id}>
-                      <Link to={`/character/${char._id}`} style={{ color: '#646CFF' }}>
+                      <Link to={`/characters/${char._id}`} style={{ color: '#646CFF' }}>
                         {char.name}
                       </Link>{' '}
                       - {getSeasonNameById(char.seasonId)}
@@ -64,7 +64,7 @@ const Home = ({ seasons, characters }) => {
                 <ul>
                   {filteredSeasons.map((season) => (
                     <li key={season._id}>
-                      <Link to={`/season/${season._id}`} style={{ color: '#646CFF' }}>
+                      <Link to={`/seasons/${season._id}`} style={{ color: '#646CFF' }}>
                         {season.name}
                       </Link>{' '}
                       ({season.airingYear}) - {season.theme}
