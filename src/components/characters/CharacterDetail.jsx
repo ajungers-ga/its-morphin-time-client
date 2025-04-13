@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'; // Import Link for navigation
 import * as Services from '../services/services';
+<<<<<<<<< Temporary merge branch 1
+import './CharacterDetail.css'; // Ensure this CSS file exists and styles your component
+=========
 import './CharacterDetail.css'; // Ensure this CSS file exists
+>>>>>>>>> Temporary merge branch 2
 
 const CharacterDetail = () => {
   const { id } = useParams();
@@ -23,12 +27,21 @@ const CharacterDetail = () => {
         }
       } catch (err) {
         setError("An error occurred while fetching details.");
+      try {
+        const data = await Services.fetchCharacterDetails(id);
+        if (data && !data.err) {
+          setCharacterDetails(data);
+        } else {
+          setError(data ? data.err : 'Failed to load character details.');
+        }
+      } catch (err) {
+        setError("An error occurred while fetching details.");
       }
       setLoading(false);
     };
 
     fetchDetails();
-  }, [id]);
+  }}, [id]);
 
   if (loading) {
     return <div>Loading character details...</div>;
@@ -88,6 +101,8 @@ const CharacterDetail = () => {
           "Unknown Season"
         )}
       </p>
+      {/* Add image logic and other fields as needed */}
+>>>>>>>>> Temporary merge branch 2
     </div>
   );
 };
