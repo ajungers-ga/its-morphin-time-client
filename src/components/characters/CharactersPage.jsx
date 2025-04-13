@@ -2,55 +2,48 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Services from '../services/services';
-import './CharacterDetail.css'; // You can create this CSS file for styling
+// Import the CSS for the list page if you have one, e.g., './CharactersPage.css'
+// Using './CharacterDetail.css' here might be a typo unless the list shares styles.
+// Let's assume you might have a './CharactersPage.css' or similar
+import './CharacterDetail'; // Or './CharacterDetail.css' if intentional
 
-const CharactersPage = ({ characters: initialCharacters }) => {
-  const [characters, setCharacters] = useState(initialCharacters);
+const CharactersPage = ({ characters }) => {
+  const [charList, setCharList] = useState(characters || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!initialCharacters || initialCharacters.length === 0) {
+    if (!characters || characters.length === 0) {
       const fetchAllCharacters = async () => {
         setLoading(true);
-        setError(null);
         const data = await Services.fetchCharacters();
         if (data && !data.err) {
-          setCharacters(data);
+          setCharList(data);
         } else {
           setError(data ? data.err : 'Failed to load characters.');
         }
         setLoading(false);
       };
-
       fetchAllCharacters();
     }
-  }, [initialCharacters]);
+  }, [characters]);
 
-  if (loading) {
-    return <div>Loading characters...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading characters...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="characters-page-container">
       <h1>Power Rangers Characters</h1>
-      {!characters || characters.length === 0 ? (
-        <p>No characters available.</p>
-      ) : (
-        <ul className="characters-list">
-          {characters.map((character) => (
-            <li key={character._id} className="character-item">
-              <Link to={`/character/${character._id}`} className="character-link">
-                {character.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="characters-list">
+        {charList.map((character) => (
+          <li key={character._id} className="character-item">
+            {/* --- FIX HERE --- */}
+            {/* Use template literals (backticks) to build the dynamic path */}
+            <Link to={`/characters/${character._id}`}>{character.name}</Link>
+            {/* ---------------- */}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
