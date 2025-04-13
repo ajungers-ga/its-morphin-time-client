@@ -1,6 +1,6 @@
-// src/App.jsx
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
 import SeasonList from './components/season/SeasonList';
@@ -8,11 +8,13 @@ import SeasonDetail from './components/season/SeasonDetail';
 import CharactersPage from './components/characters/CharactersPage';
 import CharacterDetail from './components/characters/CharacterDetail';
 import MegazordPage from './components/megazord/MegazordPage';
-import MegazordDetail from './components/megazord/MegazordDetail'
-import * as Services from './components/services/services';
+import MegazordDetail from './components/megazord/MegazordDetail';
 import Footer from './components/footer/footer';
+
+import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
+
 
 const App = () => {
   const [seasons, setSeasons] = useState([]);
@@ -60,8 +62,9 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
-        <Route path="/season" element={<SeasonList />} />
-        <Route path="/season/:id" element={<SeasonDetail />} />
+        {/* Using plural routes for consistency */}
+        <Route path="/seasons" element={<SeasonList />} />
+        <Route path="/seasons/:id" element={<SeasonDetail />} />
         <Route path="/characters" element={<CharactersPage characters={rangers} />} />
         <Route path="/characters/:id" element={<CharacterDetail />} />
         <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />

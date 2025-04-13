@@ -28,7 +28,7 @@ const SeasonList = () => {
       <ul className="season-list">
         {seasons.map((season) => (
           <li key={season._id}>
-            <Link to={`/season/${season._id}`}>Season {season.seasonNumber}</Link>
+            <Link to={`/seasons/${season._id}`}>Season {season.seasonNumber}</Link>
 
           </li>
         ))}

@@ -1,8 +1,6 @@
-// src/components/services/services.jsx
-
 const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
-// Seasons
+// SEASONS
 const fetchSeasons = async () => {
   try {
     const res = await fetch(`${BASE_URL}/seasons`);
@@ -25,7 +23,7 @@ const fetchSeasonDetails = async (id) => {
   }
 };
 
-// Characters (Rangers)
+// CHARACTERS (Rangers)
 const fetchCharacters = async () => {
   try {
     const res = await fetch(`${BASE_URL}/rangers`);
@@ -48,7 +46,7 @@ const fetchCharacterDetails = async (id) => {
   }
 };
 
-// Megazords
+// MEGAZORDS
 const fetchMegazords = async () => {
   try {
     const res = await fetch(`${BASE_URL}/megazords`);

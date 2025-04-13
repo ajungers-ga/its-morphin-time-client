@@ -1,9 +1,8 @@
 // src/components/characters/CharacterDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom'; // Import Link for navigation
+import { useParams, Link } from 'react-router-dom';
 import * as Services from '../services/services';
-import './CharacterDetail.css'; // Ensure this CSS file exists
-import './CharacterDetail.css'; // Ensure this CSS file exists and styles your component
+import './CharacterDetail.css';
 
 const CharacterDetail = () => {
   const { id } = useParams();
@@ -16,55 +15,43 @@ const CharacterDetail = () => {
       setLoading(true);
       setError(null);
       try {
-        const data = await Services.fetchCharacterDetails(id);
+        const data = await Services.fetchCharacterDetails(id); // ← fetch ONE character
         if (data && !data.err) {
           setCharacterDetails(data);
         } else {
           setError(data ? data.err : 'Failed to load character details.');
         }
       } catch (err) {
-        setError("An error occurred while fetching details.");
-      try {
-        const data = await Services.fetchCharacterDetails(id);
-        if (data && !data.err) {
-          setCharacterDetails(data);
-        } else {
-          setError(data ? data.err : 'Failed to load character details.');
-        }
-      } catch (err) {
+        console.error("Error in fetchCharacterDetails:", err);
         setError("An error occurred while fetching details.");
       }
       setLoading(false);
     };
 
     fetchDetails();
-  }}, [id]);
+  }, [id]);
 
-  if (loading) {
-    return <div>Loading character details...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!characterDetails) {
-    return <div>No character details found.</div>;
-  }
+  if (loading) return <div>Loading character details...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!characterDetails) return <div>No character details found.</div>;
 
   return (
     <div className="character-detail-container">
       <h1>{characterDetails.name}</h1>
-      <p>
-        <strong>Color:</strong> {characterDetails.color || "Unknown Color"}
-      </p>
-      <p>
-        <strong>Role:</strong> {characterDetails.role || "Unknown Role"}
-      </p>
+      {characterDetails.fullName && (
+        <p><strong>Full Name:</strong> {characterDetails.fullName}</p>
+      )}
+      <p><strong>Color:</strong> {characterDetails.color || "Unknown Color"}</p>
+      <p><strong>Gender:</strong> {characterDetails.gender || "N/A"}</p>
+      <p><strong>Zords:</strong> {characterDetails.zord?.join(', ') || "N/A"}</p>
+      <p><strong>Homeworld:</strong> {characterDetails.homeworld || "N/A"}</p>
+      <p><strong>First Appearance:</strong> {characterDetails.firstAp || "N/A"}</p>
+      <p><strong>Last Appearance:</strong> {characterDetails.lastAp || "N/A"}</p>
+      <p><strong>Number of Appearances:</strong> {characterDetails.numberOfAp || "N/A"}</p>
+      <p><strong>Actor:</strong> {characterDetails.actor || "N/A"}</p>
       <p>
         <strong>Season:</strong>{" "}
         {characterDetails.season ? (
-          // If season is populated, assume it's an object with _id and name properties.
           <Link to={`/seasons/${characterDetails.season._id || characterDetails.season}`}>
             {characterDetails.season.name || characterDetails.season}
           </Link>
@@ -72,18 +59,6 @@ const CharacterDetail = () => {
           "Unknown Season"
         )}
       </p>
-      {/* Add image logic and other fields as needed */}
-      <p>
-        <strong>Color:</strong> {characterDetails.color || "Unknown Color"}
-      </p>
-      <p>
-        <strong>Role:</strong> {characterDetails.role || "Unknown Role"}
-      </p>
-      <p>
-        <strong>Season:</strong>{" "}
-        {characterDetails.season?.name || characterDetails.season || "Unknown Season"}
-      </p>
-      {/* Add more fields or image logic if needed */}
     </div>
   );
 };

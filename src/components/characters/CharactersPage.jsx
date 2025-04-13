@@ -2,10 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Services from '../services/services';
-// Import the CSS for the list page if you have one, e.g., './CharactersPage.css'
-// Using './CharacterDetail.css' here might be a typo unless the list shares styles.
-// Let's assume you might have a './CharactersPage.css' or similar
-import './CharacterDetail'; // Or './CharacterDetail.css' if intentional
+// IMPORTANT: Make sure to import the dedicated CSS for this list page.
+import './CharacterDetail.css'; 
 
 const CharactersPage = ({ characters }) => {
   const [charList, setCharList] = useState(characters || []);
@@ -37,10 +35,9 @@ const CharactersPage = ({ characters }) => {
       <ul className="characters-list">
         {charList.map((character) => (
           <li key={character._id} className="character-item">
-            {/* --- FIX HERE --- */}
-            {/* Use template literals (backticks) to build the dynamic path */}
-            <Link to={`/characters/${character._id}`}>{character.name}</Link>
-            {/* ---------------- */}
+            <Link to={`/characters/${character._id}`}>
+              {character.name}
+            </Link>
           </li>
         ))}
       </ul>
