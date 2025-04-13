@@ -1,16 +1,16 @@
 // src/App.jsx
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavBar from './components/navbar/navbar';
-import Home from './components/home/home';
+import NavBar from './components/navbar/NavBar';
+import Home from './components/home/Home';
 import SeasonList from './components/season/SeasonList';
 import SeasonDetail from './components/season/SeasonDetail';
 import CharactersPage from './components/characters/CharactersPage';
 import CharacterDetail from './components/characters/CharacterDetail';
 import MegazordPage from './components/megazord/MegazordPage';
 import MegazordDetail from './components/megazord/MegazordDetail';
+import Footer from './components/footer/Footer';
 import * as Services from './components/services/services';
-import Footer from './components/footer/footer';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
 
@@ -60,7 +60,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
-        {/* Updated Season routes to plural for consistency */}
+        {/* Using plural routes for consistency */}
         <Route path="/seasons" element={<SeasonList />} />
         <Route path="/seasons/:id" element={<SeasonDetail />} />
         <Route path="/characters" element={<CharactersPage characters={rangers} />} />
