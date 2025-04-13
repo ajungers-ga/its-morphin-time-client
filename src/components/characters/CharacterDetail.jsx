@@ -5,60 +5,82 @@ import * as Services from '../services/services';
 import './CharacterDetail.css';
 
 const CharacterDetail = () => {
-  const { id } = useParams();
-  const [characterDetails, setCharacterDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
+
+  const { id } = useParams(); // Get the character ID from the URL
+  const [character, setCharacter] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchDetails = async () => {
+    const fetchCharacter = async () => {
       setLoading(true);
-      setError(null);
-      try {
-        const data = await Services.fetchCharacterDetails(id); // ← fetch ONE character
-        if (data && !data.err) {
-          setCharacterDetails(data);
-        } else {
-          setError(data ? data.err : 'Failed to load character details.');
-        }
-      } catch (err) {
-        console.error("Error in fetchCharacterDetails:", err);
-        setError("An error occurred while fetching details.");
+      // Use the dedicated fetch for character details rather than fetching the whole list
+      const data = await Services.fetchCharacterDetails(id);
+      if (data && !data.err) {
+        setCharacter(data);
+      } else {
+        setError(data ? data.err : 'Failed to load character details.');
+
       }
       setLoading(false);
     };
 
-    fetchDetails();
+
+    fetchCharacter();
   }, [id]);
 
-  if (loading) return <div>Loading character details...</div>;
+  if (loading) return <div>Loading character...</div>;
   if (error) return <div>Error: {error}</div>;
-  if (!characterDetails) return <div>No character details found.</div>;
+  if (!character) return <div>No character found.</div>;
 
   return (
     <div className="character-detail-container">
-      <h1>{characterDetails.name}</h1>
-      {characterDetails.fullName && (
-        <p><strong>Full Name:</strong> {characterDetails.fullName}</p>
+      <h1>{character.name}</h1>
+      {character.fullName && (
+        <p>
+          <strong>Full Name:</strong> {character.fullName}
+        </p>
       )}
-      <p><strong>Color:</strong> {characterDetails.color || "Unknown Color"}</p>
-      <p><strong>Gender:</strong> {characterDetails.gender || "N/A"}</p>
-      <p><strong>Zords:</strong> {characterDetails.zord?.join(', ') || "N/A"}</p>
-      <p><strong>Homeworld:</strong> {characterDetails.homeworld || "N/A"}</p>
-      <p><strong>First Appearance:</strong> {characterDetails.firstAp || "N/A"}</p>
-      <p><strong>Last Appearance:</strong> {characterDetails.lastAp || "N/A"}</p>
-      <p><strong>Number of Appearances:</strong> {characterDetails.numberOfAp || "N/A"}</p>
-      <p><strong>Actor:</strong> {characterDetails.actor || "N/A"}</p>
+      <p>
+        <strong>Color:</strong> {character.color || "Unknown Color"}
+      </p>
+      <p>
+        <strong>Gender:</strong> {character.gender || "N/A"}
+      </p>
+      <p>
+        <strong>Zords:</strong>{" "}
+        {character.zord && character.zord.length > 0
+          ? character.zord.join(', ')
+          : "N/A"}
+      </p>
+      <p>
+        <strong>Homeworld:</strong> {character.homeworld || "N/A"}
+      </p>
+      <p>
+        <strong>First Appearance:</strong> {character.firstAp || "N/A"}
+      </p>
+      <p>
+        <strong>Last Appearance:</strong> {character.lastAp || "N/A"}
+      </p>
+      <p>
+        <strong>Number of Appearances:</strong> {character.numberOfAp || "N/A"}
+      </p>
+      <p>
+        <strong>Actor:</strong> {character.actor || "N/A"}
+      </p>
       <p>
         <strong>Season:</strong>{" "}
-        {characterDetails.season ? (
-          <Link to={`/seasons/${characterDetails.season._id || characterDetails.season}`}>
-            {characterDetails.season.name || characterDetails.season}
+        {character.season ? (
+          <Link to={`/seasons/${character.season._id || character.season}`}>
+            {character.season.name || character.season}
+
           </Link>
         ) : (
           "Unknown Season"
         )}
       </p>
+      <Link to="/characters">← Back to Characters</Link>
+
     </div>
   );
 };
