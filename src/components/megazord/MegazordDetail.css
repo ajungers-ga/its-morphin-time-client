@@ -38,3 +38,11 @@
     font-weight: bold;
     color: #f57c00; /* Darker orange */
   }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background-image: url('https://wallpapercave.com/wp/wp2683102.jpg');
+    background-size: cover;
+    background-position: center;
+  }
