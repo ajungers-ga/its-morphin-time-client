@@ -2,6 +2,8 @@
 .megazords-page-container {
     padding: 20px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100vh;
+    background-image: url('https://wallpapercave.com/wp/wp2683102.jpg');
   }
   
   .megazords-list {
