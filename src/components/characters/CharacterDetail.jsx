@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'; // Import Link for navigation
 import * as Services from '../services/services';
-import './CharacterDetail.css'; // Ensure this CSS file exists
+import './CharacterDetail.css'; // Import CSS once
 
 const CharacterDetail = () => {
   const { id } = useParams();
@@ -54,7 +54,7 @@ const CharacterDetail = () => {
       <p>
         <strong>Season:</strong>{" "}
         {characterDetails.season ? (
-          // If season is populated, assume it's an object with _id and name properties.
+          // Assume season is an object with _id and name properties when populated.
           <Link to={`/seasons/${characterDetails.season._id || characterDetails.season}`}>
             {characterDetails.season.name || characterDetails.season}
           </Link>
@@ -62,7 +62,6 @@ const CharacterDetail = () => {
           "Unknown Season"
         )}
       </p>
-      {/* Add image logic and other fields as needed */}
     </div>
   );
 };
