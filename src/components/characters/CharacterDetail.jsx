@@ -5,6 +5,7 @@ import * as Services from '../services/services';
 import './CharacterDetail.css';
 
 const CharacterDetail = () => {
+
   const { id } = useParams(); // Get the character ID from the URL
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,9 +20,11 @@ const CharacterDetail = () => {
         setCharacter(data);
       } else {
         setError(data ? data.err : 'Failed to load character details.');
+
       }
       setLoading(false);
     };
+
 
     fetchCharacter();
   }, [id]);
@@ -70,12 +73,14 @@ const CharacterDetail = () => {
         {character.season ? (
           <Link to={`/seasons/${character.season._id || character.season}`}>
             {character.season.name || character.season}
+
           </Link>
         ) : (
           "Unknown Season"
         )}
       </p>
       <Link to="/characters">← Back to Characters</Link>
+
     </div>
   );
 };

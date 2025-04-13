@@ -1,7 +1,7 @@
-// src/App.jsx
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavBar from './components/navbar/NavBar';
+
+import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
 import SeasonList from './components/season/SeasonList';
 import SeasonDetail from './components/season/SeasonDetail';
@@ -9,10 +9,12 @@ import CharactersPage from './components/characters/CharactersPage';
 import CharacterDetail from './components/characters/CharacterDetail';
 import MegazordPage from './components/megazord/MegazordPage';
 import MegazordDetail from './components/megazord/MegazordDetail';
-import Footer from './components/footer/Footer';
+import Footer from './components/footer/footer';
+
 import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
+
 
 const App = () => {
   const [seasons, setSeasons] = useState([]);
