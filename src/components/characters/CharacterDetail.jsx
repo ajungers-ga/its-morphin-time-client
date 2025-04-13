@@ -38,7 +38,7 @@ const CharacterDetail = () => {
     };
 
     fetchDetails();
-  }, [id]);
+  }}, [id]);
 
   if (loading) {
     return <div>Loading character details...</div>;
@@ -89,4 +89,3 @@ const CharacterDetail = () => {
 };
 
 export default CharacterDetail;
-
