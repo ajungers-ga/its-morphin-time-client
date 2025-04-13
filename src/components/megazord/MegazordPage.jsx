@@ -44,10 +44,10 @@ const MegazordPage = ({ megazords: initialMegazords }) => {
         <ul className="megazords-list">
           {megazords.map((megazord) => (
             <li key={megazord._id} className="megazord-item">
-              <Link to={`/megazord/${megazord._id}`} className="megazord-link">
-                {megazord.name}
-              </Link>
-            </li>
+            {/* --- FIX SIMILAR TO CHARACTERS PAGE --- */}
+            <Link to={`/megazords/${megazord._id}`}>{megazord.name}</Link>
+            {/* ------------------------------------ */}
+          </li>
           ))}
         </ul>
       )}

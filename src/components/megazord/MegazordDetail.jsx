@@ -1,8 +1,8 @@
 // src/components/megazord/MegazordDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; // Import Link from react-router-dom
 import * as Services from '../services/services';
-import './MegazordDetail.css'; // Create this CSS file
+import './MegazordDetail.css'; // Ensure this CSS file exists and styles your component
 
 const MegazordDetail = () => {
   const { id } = useParams();
@@ -14,11 +14,15 @@ const MegazordDetail = () => {
     const fetchDetails = async () => {
       setLoading(true);
       setError(null);
-      const data = await Services.fetchMegazordDetails(id);
-      if (data && !data.err) {
-        setMegazordDetails(data);
-      } else {
-        setError(data ? data.err : 'Failed to load megazord details.');
+      try {
+        const data = await Services.fetchMegazordDetails(id);
+        if (data && !data.err) {
+          setMegazordDetails(data);
+        } else {
+          setError(data ? data.err : 'Failed to load megazord details.');
+        }
+      } catch (err) {
+        setError("An error occurred while fetching details.");
       }
       setLoading(false);
     };
@@ -41,9 +45,32 @@ const MegazordDetail = () => {
   return (
     <div className="megazord-detail-container">
       <h1>{megazordDetails.name}</h1>
-      {/* Display other megazord details based on your backend response */}
-      <p><strong>Season:</strong> {megazordDetails.season}</p>
-      {/* Add image logic if available */}
+      <img
+        src={megazordDetails.pictureLink}
+        alt={megazordDetails.name}
+        className="megazord-image"
+      />
+      <p>
+        <strong>First Appeared In Season:</strong>{' '}
+        {megazordDetails.firstAppearedInSeason?.name ||
+          megazordDetails.firstAppearedInSeason ||
+          'Unknown Season'}
+      </p>
+      <p>
+        <strong>Combined Megazord:</strong> {megazordDetails.combinedMegazord}
+      </p>
+      <div>
+        <strong>Piloted By:</strong>
+        <ul>
+          {megazordDetails.pilotedBy &&
+            megazordDetails.pilotedBy.map((ranger) => (
+              <li key={ranger._id}>
+                {/* Link to the character's detail page */}
+                <Link to={`/characters/${ranger._id}`}>{ranger.name}</Link>
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 };

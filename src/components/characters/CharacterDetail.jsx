@@ -1,8 +1,8 @@
 // src/components/characters/CharacterDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; // Import Link for navigation
 import * as Services from '../services/services';
-import './CharacterDetail.css'; // Create this CSS file
+import './CharacterDetail.css'; // Ensure this CSS file exists
 
 const CharacterDetail = () => {
   const { id } = useParams();
@@ -14,11 +14,15 @@ const CharacterDetail = () => {
     const fetchDetails = async () => {
       setLoading(true);
       setError(null);
-      const data = await Services.fetchCharacterDetails(id);
-      if (data && !data.err) {
-        setCharacterDetails(data);
-      } else {
-        setError(data ? data.err : 'Failed to load character details.');
+      try {
+        const data = await Services.fetchCharacterDetails(id);
+        if (data && !data.err) {
+          setCharacterDetails(data);
+        } else {
+          setError(data ? data.err : 'Failed to load character details.');
+        }
+      } catch (err) {
+        setError("An error occurred while fetching details.");
       }
       setLoading(false);
     };
@@ -41,11 +45,24 @@ const CharacterDetail = () => {
   return (
     <div className="character-detail-container">
       <h1>{characterDetails.name}</h1>
-      {/* Display other character details based on your backend response */}
-      <p><strong>Color:</strong> {characterDetails.color}</p>
-      <p><strong>Role:</strong> {characterDetails.role}</p>
-      <p><strong>Season:</strong> {characterDetails.season}</p>
-      {/* Add image logic if available */}
+      <p>
+        <strong>Color:</strong> {characterDetails.color || "Unknown Color"}
+      </p>
+      <p>
+        <strong>Role:</strong> {characterDetails.role || "Unknown Role"}
+      </p>
+      <p>
+        <strong>Season:</strong>{" "}
+        {characterDetails.season ? (
+          // If season is populated, assume it's an object with _id and name properties.
+          <Link to={`/seasons/${characterDetails.season._id || characterDetails.season}`}>
+            {characterDetails.season.name || characterDetails.season}
+          </Link>
+        ) : (
+          "Unknown Season"
+        )}
+      </p>
+      {/* Add image logic and other fields as needed */}
     </div>
   );
 };

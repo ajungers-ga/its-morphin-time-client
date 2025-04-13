@@ -1,10 +1,10 @@
-
+// src/components/season/SeasonDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import * as Services from '../services/services';
 import './SeasonDetail.css';
 
-const Season = () => {
+const SeasonDetail = () => {
   const { id } = useParams();
   const [seasonDetails, setSeasonDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -26,23 +26,14 @@ const Season = () => {
     fetchDetails();
   }, [id]);
 
-  if (loading) {
-    return <div>Loading season details...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!seasonDetails) {
-    return <div>No season details found.</div>;
-  }
+  if (loading) return <div>Loading season details...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!seasonDetails) return <div>No season details found.</div>;
 
   return (
     <div className="season-detail-container">
       <div className="season-info">
         <h1>{seasonDetails.name} (Season {seasonDetails.seasonNumber})</h1>
-        {/* Add image logic if available in your backend data */}
         <p><strong>Sentai Name:</strong> {seasonDetails.sentaiName}</p>
         <p><strong>Airing Year:</strong> {seasonDetails.airingYear}</p>
         <p><strong>Number of Episodes:</strong> {seasonDetails.numberOfEpisodes}</p>
@@ -51,10 +42,11 @@ const Season = () => {
         <p><strong>Theme:</strong> {seasonDetails.theme}</p>
         <p><strong>Producer:</strong> {seasonDetails.producer}</p>
         <p><strong>Rangers:</strong> {seasonDetails.rangers ? seasonDetails.rangers.join(', ') : 'N/A'}</p>
+
+        <Link to="/season" className="back-link">← Back to Seasons</Link>
       </div>
-      {/* You can add more detail display here */}
     </div>
   );
 };
 
-export default Season;
+export default SeasonDetail;
