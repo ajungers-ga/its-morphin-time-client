@@ -73,6 +73,7 @@ const MegazordDetail = () => {
             <p>No pilot information available.</p>
           )}
         </div>
+         <Link to='magazords'>← Back to Magazords</Link>
       </div>
     </div>
   );
