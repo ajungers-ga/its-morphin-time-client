@@ -44,7 +44,7 @@ const MegazordDetail = () => {
       <div className="megazord-info">
         <h1>{megazordDetails.name}</h1>
         <img
-          src={megazordDetails.pictureLink}
+          src='https://th.bing.com/th/id/OIP._nXeav3FDZPN3Qyx_ZeLMgHaLg?rs=1&pid=ImgDetMain'
           alt={megazordDetails.name}
           className="megazord-image"
         />
