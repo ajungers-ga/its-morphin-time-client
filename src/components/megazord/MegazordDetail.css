@@ -1,4 +1,4 @@
-/* src/components/megazord/MegazordDetail.css */
+/* Container for the megazord detail page */
 .megazord-detail-container {
     display: flex;
     justify-content: center;
@@ -47,30 +47,36 @@
   max-width: 800px;
 }
 
+/* Header styling */
 .megazord-info h1 {
-  color: #ff9800; /* Orange color */
+  color: #ff9800;
   margin-bottom: 20px;
 }
 
+/* Image styling */
 .megazord-image {
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
   border-radius: 4px;
+  /* Optionally uncomment below for object-fit behavior */
+  /* object-fit: cover; */
 }
 
+/* Paragraph text styling */
 .megazord-info p {
   color: #666;
   line-height: 1.7;
   margin-bottom: 10px;
 }
 
+/* Bold text in paragraphs */
 .megazord-info strong {
   font-weight: bold;
-  color: #f57c00; /* Darker orange */
+  color: #f57c00;
 }
 
-/* Optionally style the pilot links */
+/* Link styling */
 .megazord-info a {
   color: #337ab7;
   text-decoration: none;

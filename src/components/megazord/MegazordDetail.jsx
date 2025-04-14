@@ -40,14 +40,17 @@ const MegazordDetail = () => {
   // console.log(JSON.stringify(megazordDetails, null, 2));
 
   return (
-    <div className="megazord-detail-container">
+    <div className="megazord-detail-container" >
+             
       <div className="megazord-info">
         <h1>{megazordDetails.name}</h1>
         <img
-          src={megazordDetails.pictureLink}
-          alt={megazordDetails.name}
-          className="megazord-image"
-        />
+  src={megazordDetails.pictureLink}
+  alt={megazordDetails.name}
+  className="megazord-image"
+/>
+ 
+       
         <p>
           <strong>First Appeared In Season:</strong>< Link to={`/seasons/${megazordDetails.firstAppearedInSeason._id}`}>{megazordDetails.firstAppearedInSeason
             ? megazordDetails.firstAppearedInSeason.name|| 'Unknown Season Name'
