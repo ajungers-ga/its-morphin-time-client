@@ -1,10 +1,13 @@
-/* SeasonDetail.css */
+SeasonDetail.css
 .season-detail-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 120px); /* Adjust as needed */
-    background-color: #e0f7fa; /* Light blue background */
+    text-align: center;
+    min-height: calc(100vh - 120px); 
+    font-family: "Goldman", sans-serif;
+    font-weight: 400;
+    font-style: normal;
   }
   
   .season-info {
@@ -17,7 +20,7 @@
   }
   
   .season-info h1 {
-    color: #039be5; /* Blue color */
+    color: #039be5; 
     margin-bottom: 20px;
   }
   
@@ -36,5 +39,5 @@
   
   .season-info strong {
     font-weight: bold;
-    color: #2196f3; /* Slightly darker blue */
+    color: #2196f3;
   }
