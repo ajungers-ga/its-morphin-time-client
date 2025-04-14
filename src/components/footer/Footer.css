@@ -1,9 +1,15 @@
 /* Footer.css */
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Jockey+One&display=swap rel=stylesheet");
+
+
 .power-rangers-footer {
     background-color: #111; /* Dark background */
     color: #fff; /* White text */
     padding: 20px 0;
     text-align: center;
+    font-family: "Goldman", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   }
   
   .footer-links {
