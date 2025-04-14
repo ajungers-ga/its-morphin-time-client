@@ -1,4 +1,6 @@
-SeasonDetail.css
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Jockey+One&display=swap rel=stylesheet");
+
+
 .season-detail-container {
     display: flex;
     justify-content: center;
@@ -40,4 +42,9 @@ SeasonDetail.css
   .season-info strong {
     font-weight: bold;
     color: #2196f3;
+  }
+
+  .season-list {
+    list-style: none;
+   font-weight: 50px;
   }
