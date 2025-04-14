@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Services from '../services/services';
 // IMPORTANT: Make sure to import the dedicated CSS for this list page.
-import './CharacterDetail.css'; 
+import './CharactersPage.css'; 
+
 
 const CharactersPage = ({ characters }) => {
   const [charList, setCharList] = useState(characters || []);

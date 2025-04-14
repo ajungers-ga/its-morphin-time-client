@@ -4,6 +4,9 @@
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 120px); /* Adjust as needed */
+    font-family: "Goldman", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   }
   
   .megazord-info {
@@ -84,4 +87,8 @@
 
 .megazord-info a:hover {
   text-decoration: underline;
+}
+
+li {
+  list-style: none;
 }
