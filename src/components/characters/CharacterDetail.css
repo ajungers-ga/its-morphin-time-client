@@ -6,7 +6,9 @@
   background-color: #f7f7f7; /* Light background for clear contrast */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Goldman", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .character-detail-container h1 {
