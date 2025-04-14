@@ -58,6 +58,7 @@ const fetchMegazords = async () => {
   }
 };
 
+
 const fetchMegazordDetails = async (id) => {
   try {
     const res = await fetch(`${BASE_URL}/megazords/${id}`);

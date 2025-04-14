@@ -49,10 +49,9 @@ const MegazordDetail = () => {
           className="megazord-image"
         />
         <p>
-          <strong>First Appeared In Season:</strong>{' '}
-          {megazordDetails.firstAppearedInSeason && typeof megazordDetails.firstAppearedInSeason === 'object'
-            ? megazordDetails.firstAppearedInSeason.name || 'Unknown Season Name'
-            : megazordDetails.firstAppearedInSeason || 'Unknown Season'}
+          <strong>First Appeared In Season:</strong>< Link to={`/seasons/${megazordDetails.firstAppearedInSeason._id}`}>{megazordDetails.firstAppearedInSeason
+            ? megazordDetails.firstAppearedInSeason.name|| 'Unknown Season Name'
+            : megazordDetails.firstAppearedInSeason || 'Unknown Season'}</Link>
         </p>
         <p>
           <strong>Combined Megazord:</strong> {megazordDetails.combinedMegazord}
@@ -73,7 +72,7 @@ const MegazordDetail = () => {
             <p>No pilot information available.</p>
           )}
         </div>
-         <Link to='magazords'>← Back to Magazords</Link>
+         <Link to="/megazords">← Back to Magazords</Link>
       </div>
     </div>
   );

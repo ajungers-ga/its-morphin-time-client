@@ -2,11 +2,17 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import './Home.css';
 
-const Home = ({ seasons, characters }) => {
+const Home = ({ seasons, characters, megazords }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   // Helper to find the season a character belongs to
   const getSeasonNameById = (seasonId) => {
+    const season = seasons.find((s) => s._id === seasonId);
+    return season ? season.name : 'Unknown Season';
+  };
+
+  // Helper to find the season a megazord first appeared in
+  const getMegazordFirstSeasonName = (seasonId) => {
     const season = seasons.find((s) => s._id === seasonId);
     return season ? season.name : 'Unknown Season';
   };
@@ -18,6 +24,10 @@ const Home = ({ seasons, characters }) => {
 
   const filteredSeasons = seasons.filter((season) =>
     season.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredMegazords = megazords.filter((megazord) =>
+    megazord.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -50,7 +60,7 @@ const Home = ({ seasons, characters }) => {
                       <Link to={`/characters/${char._id}`} style={{ color: '#646CFF' }}>
                         {char.name}
                       </Link>{' '}
-                      - {getSeasonNameById(char.seasonId)}
+                      - {getSeasonNameById(char.season)}
                     </li>
                   ))}
                 </ul>
@@ -74,7 +84,24 @@ const Home = ({ seasons, characters }) => {
               </>
             )}
 
-            {filteredCharacters.length === 0 && filteredSeasons.length === 0 && (
+            {/* Megazord Results */}
+            {filteredMegazords.length > 0 && (
+              <>
+                <h3>Megazords</h3>
+                <ul>
+                  {filteredMegazords.map((megazord) => (
+                    <li key={megazord._id}>
+                      <Link to={`/megazords/${megazord._id}`} style={{ color: '#646CFF' }}>
+                        {megazord.name}
+                      </Link>{' '}
+                      - Piloted By: {megazord.pilotedBy ? megazord.pilotedBy.length : 0} Ranger(s) - First Appeared In: {getMegazordFirstSeasonName(megazord.firstAppearedInSeason)} - {megazord.combinedMegazord}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {filteredCharacters.length === 0 && filteredSeasons.length === 0 && filteredMegazords.length === 0 && (
               <p>No matches found.</p>
             )}
           </div>
