@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Services from '../services/services';
+import { getAllMegazords } from '../../services/megazordService';
 import './MegazordPage.css'; // Use a separate CSS file for your list page
 
 const MegazordPage = ({ megazords: initialMegazords }) => {

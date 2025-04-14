@@ -49,7 +49,8 @@ const SeasonDetail = () => {
         <p><strong>Last Episode:</strong> {seasonDetails.lastEpisode}</p>
         <p><strong>Theme:</strong> {seasonDetails.theme}</p>
         <p><strong>Producer:</strong> {seasonDetails.producer}</p>
-        <p><strong>Characters:</strong> {seasonDetails.rangers}</p>
+        {seasonDetails.magozord.map((m)=>( <p><strong>Megazord:</strong><Link to={`/megazords/${m._id}`}> {m.name}</Link></p>))}
+       
         
         {/* Display Characters (Rangers) if available */}
         {seasonDetails.rangers && seasonDetails.rangers.length > 0 ? (
