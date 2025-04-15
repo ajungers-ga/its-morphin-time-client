@@ -37,11 +37,17 @@ const SeasonDetail = () => {
   if (!seasonDetails) return <div>No season details found.</div>;
 
   return (
-    <div className="season-detail-container">
+    <div
+  className="season-detail-container">
       <div className="season-info">
         <h1>
           {seasonDetails.name} (Season {seasonDetails.seasonNumber})
         </h1>
+        <img
+          src={seasonDetails.img}
+          alt={seasonDetails.name}
+          className="character-image"
+        />
         <p><strong>Sentai Name:</strong> {seasonDetails.sentaiName}</p>
         <p><strong>Airing Year:</strong> {seasonDetails.airingYear}</p>
         <p><strong>Number of Episodes:</strong> {seasonDetails.numberOfEpisodes}</p>
