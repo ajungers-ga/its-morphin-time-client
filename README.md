@@ -52,7 +52,7 @@ its-morphin-time-client/
 │   ├── components/
 │   │   ├── home/
 │   │   ├── characters/
-│   │   ├── monsters/
+│   │   ├── megazords/
 │   │   └── seasons/
 │   ├── App.jsx
 │   ├── App.css
