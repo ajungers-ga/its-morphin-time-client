@@ -1,12 +1,68 @@
-# React + Vite
+# ⚡️ It's Morphin Time - React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the **React frontend** for our Power Rangers-themed full-stack CRUD app built during Unit 3 at General Assembly.
 
-Currently, two official plugins are available:
+🧠 **Backend Repo:** [its-morphin-time](https://github.com/Bricemck/its-morphin-time)  
+🚀 **Live App:** [View Deployed App](http://18.217.185.247:5174/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React with JSX
+- React Router DOM
+- Component-based architecture
+- Fetch API for backend communication
+- CSS Modules & custom styling
+
+---
+
+## 🎮 App Features
+
+- Dynamic single-page application (SPA)
+- Navigation through different Power Rangers content
+- Interactive pages for:
+  - 🛡️ Rangers
+  - 🐉 Zords
+  - 💀 Monsters
+  - 📺 Seasons
+- Responsive design using custom CSS
+
+---
+
+
+## 🌟 Strongly Encouraged Features
+
+We implemented several Level-Up ideas, including:
+- ✅ AWS deployment
+- ✅ GitHub collaboration with branches and PRs
+- ✅ Multiple views and routes using React Router
+- ✅ Responsive layout and creative theme
+
+---
+
+
+## 📁 Project Structure
+
+```bash
+its-morphin-time-client/
+├── public/
+│   └── images/
+├── src/
+│   ├── components/
+│   │   ├── home/
+│   │   ├── characters/
+│   │   ├── monsters/
+│   │   └── seasons/
+│   ├── App.jsx
+│   ├── App.css
+│   └── index.js
+├── package.json
+└── vite.config.js
+```
+
+---
+
+## 🙌 Thanks!
+
+Shoutout to our teammates, instructors, and GA peers who helped make this project possible!
