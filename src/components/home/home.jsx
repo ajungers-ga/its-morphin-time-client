@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
+// src/components/Home.jsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = ({ seasons, characters, megazords }) => {
@@ -17,7 +18,7 @@ const Home = ({ seasons, characters, megazords }) => {
     return season ? season.name : 'Unknown Season';
   };
 
-  // Filtered characters and seasons
+  // Filtered characters, seasons, and megazords based on the search term
   const filteredCharacters = characters.filter((char) =>
     char.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -49,61 +50,59 @@ const Home = ({ seasons, characters, megazords }) => {
         {searchTerm && (
           <div className="search-results">
             <h2>Search Results:</h2>
+            <div className="cards-container">
+              {filteredCharacters.length > 0 && (
+                <div className="characterSearch">
+                  <h3>Characters</h3>
+                  <ul>
+                    {filteredCharacters.map((char) => (
+                      <li key={char._id}>
+                        <Link to={`/characters/${char._id}`} style={{ color: '#646CFF' }}>
+                          {char.name}
+                        </Link>{' '}
+                        - {getSeasonNameById(char.season)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {/* Character Results */}
-            {filteredCharacters.length > 0 && (
-              <>
-                <h3>Characters</h3>
-                <ul>
-                  {filteredCharacters.map((char) => (
-                    <li key={char._id}>
-                      <Link to={`/characters/${char._id}`} style={{ color: '#646CFF' }}>
-                        {char.name}
-                      </Link>{' '}
-                      - {getSeasonNameById(char.season)}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
+              {filteredSeasons.length > 0 && (
+                <div className="seasonSearch">
+                  <h3>Seasons</h3>
+                  <ul>
+                    {filteredSeasons.map((season) => (
+                      <li key={season._id}>
+                        <Link to={`/seasons/${season._id}`} style={{ color: '#646CFF' }}>
+                          {season.name}
+                        </Link>{' '}
+                        ({season.airingYear}) - {season.theme}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {/* Season Results */}
-            {filteredSeasons.length > 0 && (
-              <>
-                <h3>Seasons</h3>
-                <ul>
-                  {filteredSeasons.map((season) => (
-                    <li key={season._id}>
-                      <Link to={`/seasons/${season._id}`} style={{ color: '#646CFF' }}>
-                        {season.name}
-                      </Link>{' '}
-                      ({season.airingYear}) - {season.theme}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-
-            {/* Megazord Results */}
-            {filteredMegazords.length > 0 && (
-              <>
-                <h3>Megazords</h3>
-                <ul>
-                  {filteredMegazords.map((megazord) => (
-                    <li key={megazord._id}>
-                      <Link to={`/megazords/${megazord._id}`} style={{ color: '#646CFF' }}>
-                        {megazord.name}
-                      </Link>{' '}
-                      - Piloted By: {megazord.pilotedBy ? megazord.pilotedBy.length : 0} Ranger(s) - First Appeared In: {getMegazordFirstSeasonName(megazord.firstAppearedInSeason)} - {megazord.combinedMegazord}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-
-            {filteredCharacters.length === 0 && filteredSeasons.length === 0 && filteredMegazords.length === 0 && (
-              <p>No matches found.</p>
-            )}
+              {filteredMegazords.length > 0 && (
+                <div className="megazordSearch">
+                  <h3>Megazords</h3>
+                  <ul>
+                    {filteredMegazords.map((megazord) => (
+                      <li key={megazord._id}>
+                        <Link to={`/megazords/${megazord._id}`} style={{ color: '#646CFF' }}>
+                          {megazord.name}
+                        </Link>{' '}
+                        - Piloted By: {megazord.pilotedBy ? megazord.pilotedBy.length : 0} Ranger(s) - First Appeared In:{' '}
+                        {getMegazordFirstSeasonName(megazord.firstAppearedInSeason)} - {megazord.combinedMegazord}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+            {filteredCharacters.length === 0 &&
+              filteredSeasons.length === 0 &&
+              filteredMegazords.length === 0 && <p>No matches found.</p>}
           </div>
         )}
       </div>

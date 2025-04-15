@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as Services from '../services/services';
-import './SeasonDetail.css'; // optional for styling
+import './SeasonList.css'; // optional for styling
 
 const SeasonList = () => {
   const [seasons, setSeasons] = useState([]);
@@ -33,7 +33,7 @@ const SeasonList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </div> 
   );
 };
 
