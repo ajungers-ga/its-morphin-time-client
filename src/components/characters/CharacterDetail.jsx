@@ -69,6 +69,14 @@ const CharacterDetail = () => {
         <strong>Actor:</strong> {character.actor || "N/A"}
       </p>
       <p>
+        <strong>Image:</strong>        
+         <img
+          src={character.img}
+          alt={character.name}
+          className="ranger-image"
+        />
+      </p>
+      <p>
         <strong>Season:</strong>{" "}
         {character.season ? (
           <Link to={`/seasons/${character.season._id || character.season}`}>
