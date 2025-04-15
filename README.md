@@ -22,10 +22,10 @@ This repository contains the **React frontend** for our Power Rangers-themed ful
 - Dynamic single-page application (SPA)
 - Navigation through different Power Rangers content
 - Interactive pages for:
-  - 🛡️ Rangers
-  - 🐉 Zords
-  - 💀 Monsters
-  - 📺 Seasons
+  -  Rangers
+  -  Zords
+  -  Megazords
+  -  Seasons
 - Responsive design using custom CSS
 
 ---
