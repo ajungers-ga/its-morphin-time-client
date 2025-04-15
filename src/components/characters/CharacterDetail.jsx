@@ -34,8 +34,15 @@ const CharacterDetail = () => {
   if (!character) return <div>No character found.</div>;
 
   return (
-    <div className="character-detail-container">
+    // <div className="character-detail-container">
+       <div className="character-info">
       <h1>{character.name}</h1>
+      <img
+          src={character.img}
+          alt={character.name}
+          className="character-image"
+        />
+
       {character.fullName && (
         <p>
           <strong>Full Name:</strong> {character.fullName}
@@ -68,14 +75,7 @@ const CharacterDetail = () => {
       <p>
         <strong>Actor:</strong> {character.actor || "N/A"}
       </p>
-      <p>
-        <strong>Image:</strong>        
-         <img
-          src={character.img}
-          alt={character.name}
-          className="ranger-image"
-        />
-      </p>
+     
       <p>
         <strong>Season:</strong>{" "}
         {character.season ? (
@@ -88,8 +88,10 @@ const CharacterDetail = () => {
         )}
       </p>
       <Link to="/characters">← Back to Characters</Link>
+      </div>
+     
 
-    </div>
+    // </div>
   );
 };
 
