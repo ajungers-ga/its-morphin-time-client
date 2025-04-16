@@ -22,6 +22,17 @@ const fetchSeasonDetails = async (id) => {
     return { err: "Failed to fetch season details" };
   }
 };
+// Update
+const fetchSeasonUpdate = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}/seasons/${id}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching season details:", err);
+    return { err: "Failed to fetch season details" };
+  }
+};
 
 // CHARACTERS (Rangers)
 const fetchCharacters = async () => {
