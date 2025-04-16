@@ -75,6 +75,9 @@ const SeasonDetail = () => {
         ) : (
           <p><strong>Characters:</strong> No characters available</p>
         )}
+          <button onClick={props.handleFormView}>
+        {props.isFormOpen ? 'Close Form' : 'New Pet'}
+      </button>
 
         <Link to="/seasons" className="back-link">← Back to Seasons</Link>
       </div>
