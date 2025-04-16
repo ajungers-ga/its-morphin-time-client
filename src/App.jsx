@@ -10,6 +10,7 @@ import CharacterDetail from './components/characters/CharacterDetail';
 import MegazordPage from './components/megazord/MegazordPage';
 import MegazordDetail from './components/megazord/MegazordDetail';
 import Footer from './components/footer/footer';
+import CharacterForm from './components/characters/CharacterForm'
 
 import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
@@ -67,6 +68,7 @@ const App = () => {
         <Route path="/seasons/:id" element={<SeasonDetail />} />
         <Route path="/characters" element={<CharactersPage characters={rangers} />} />
         <Route path="/characters/:id" element={<CharacterDetail />} />
+        <Route path="/characterforms" element={<CharacterForm />} />
         <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
         <Route path="/megazords/:id" element={<MegazordDetail />} />
       </Routes>
