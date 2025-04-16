@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import './megazordForm.css';
+import * as Services from '../services/services';
+import { getAllMegazords } from '../../services/megazordService';
+
 // READ - All seasons
 const fetchSeasons = async () => {
     try {
@@ -67,12 +72,7 @@ const fetchSeasons = async () => {
       return { err: "Failed to delete season" };
     }
   };
-=======
-// src/components/PetForm/PetForm.jsx
-import { useState } from 'react';
-import './megazordForm.css';
-import * as Services from '../services/services';
-import { getAllMegazords } from '../../services/megazordService';
+
 
 const MegazordForm = (props) => {
   // formData state to control the form.
