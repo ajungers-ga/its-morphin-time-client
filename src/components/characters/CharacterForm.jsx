@@ -39,19 +39,29 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-
+    console.log(":large_yellow_circle: Submitting Season Form:", formData);
     const preparedData = {
       ...formData,
-      zord: formData.zord.split(',').map((z) => z.trim()),
+      rangers: formData.rangers
+        ? formData.rangers.split(',').map((id) => id.trim())
+        : [],
+      magozord: formData.magozord
+        ? formData.magozord.split(',').map((id) => id.trim())
+        : [],
     };
-
-    if (existingData) {
-      await Services.updateCharacter(existingData._id, preparedData);
-    } else {
-      await Services.createCharacter(preparedData);
+    try {
+      if (existingData) {
+        await Services.updateSeason(existingData._id, preparedData);
+        console.log(":white_check_mark: Season updated successfully!");
+      } else {
+        await Services.createSeason(preparedData); //  Create
+        console.log(":white_check_mark: Season created successfully!");
+        // Optional: Reset form after creation (already handled in useEffect for null existingData)
+      }
+      if (onSubmit) onSubmit(); // :white_check_mark: Redirect from App.jsx
+    } catch (err) {
+      console.error(" Error submitting form:", err);
     }
-
-    if (onSubmit) onSubmit(); // Optional callback from parent
   };
 
   return (
