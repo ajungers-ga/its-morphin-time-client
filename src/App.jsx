@@ -14,6 +14,7 @@ import Footer from './components/footer/footer';
 import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
+import MegazordForm from './components/megazord/MegazordForm';
 
 
 const App = () => {
@@ -69,6 +70,7 @@ const App = () => {
         <Route path="/characters/:id" element={<CharacterDetail />} />
         <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
         <Route path="/megazords/:id" element={<MegazordDetail />} />
+        <Route path="/megazordForm" element={<MegazordForm/>} />
       </Routes>
       <Footer />
     </Router>
