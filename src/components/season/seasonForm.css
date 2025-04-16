@@ -9,6 +9,7 @@
     font-style: normal;
     font-size: 25px;
     color: #F9A825;
+    margin: 20px;
 }
 button {
     font-family: "Goldman", sans-serif;
@@ -22,4 +23,10 @@ button {
 button:hover {
     background-color: white;
     color: black;
+}
+
+label {
+    display: inline-flex;
+    margin: 20px;
+    align-items: center;
 }

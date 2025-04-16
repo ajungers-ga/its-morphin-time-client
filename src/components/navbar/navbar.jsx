@@ -12,9 +12,7 @@ const NavBar = () => {
         <li><Link to="/seasonsForm">Seasons Form</Link></li>
    
         <li><Link to="/characters">Characters</Link></li>
-
-
- 
+        <li><Link to="/characterforms">Character Forms</Link></li>
         <li><Link to="/megazords">Megazords</Link></li>
         <li><Link to="/megazordForm">Megazord Form</Link></li>
         {/* Uncomment below if you add a Services page */}

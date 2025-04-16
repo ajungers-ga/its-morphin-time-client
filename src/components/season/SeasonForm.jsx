@@ -1,10 +1,9 @@
-// src/components/seasons/SeasonForm.jsx
-
-import { useState } from 'react';
+// src/components/season/SeasonForm.jsx
+import { useState, useEffect } from 'react';
 import './seasonForm.css';
-import * as Services from '../services/services'
-const SeasonForm = ({ handleAddSeason }) => {
-  // 1. Define state for controlled form
+import * as Services from '../services/services';
+
+const SeasonForm = ({ existingData = null, onSubmit }) => {
   const [formData, setFormData] = useState({
     name: '',
     sentaiName: '',
@@ -17,25 +16,47 @@ const SeasonForm = ({ handleAddSeason }) => {
     producer: '',
     comment: '',
     img: '',
-    rangers: '', 
-    magozord: '', 
+    rangers: '',
+    magozord: '',
   });
 
-  // 2. Handle changes to form inputs
+  useEffect(() => {
+    if (existingData) {
+      setFormData({
+        ...formData,
+        ...existingData,
+        rangers: existingData.rangers?.join(', ') || '',
+        magozord: existingData.magozord?.join(', ') || '',
+      });
+    }
+  }, [existingData]);
+
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
-  // 3. Handle form submission
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    handleAddSeason(formData); // expects a prop passed down from parent
+    const preparedData = {
+      ...formData,
+      rangers: formData.rangers.split(',').map(id => id.trim()),
+      magozord: formData.magozord.split(',').map(id => id.trim()),
+    };
+
+    if (existingData) {
+      await Services.updateSeason(existingData._id, preparedData);
+    } else {
+      await Services.createSeason(preparedData);
+    }
+
+    if (onSubmit) onSubmit(); // Close or refresh from parent
   };
 
-  // 4. Return JSX
   return (
     <div className="seasonForm">
       <form onSubmit={handleSubmit}>
+        <h2>{existingData ? 'Edit' : 'Add'} Season</h2>
+
         <label htmlFor="name">Name</label>
         <input id="name" name="name" value={formData.name} onChange={handleChange} required />
 
@@ -69,13 +90,13 @@ const SeasonForm = ({ handleAddSeason }) => {
         <label htmlFor="img">Image URL</label>
         <input id="img" name="img" value={formData.img} onChange={handleChange} />
 
-        <label htmlFor="rangers">Rangers (ObjectId or comma-separated)</label>
+        <label htmlFor="rangers">Rangers (IDs comma-separated)</label>
         <input id="rangers" name="rangers" value={formData.rangers} onChange={handleChange} />
 
-        <label htmlFor="magozord">Megazords (ObjectId or comma-separated)</label>
+        <label htmlFor="magozord">Megazords (IDs comma-separated)</label>
         <input id="magozord" name="magozord" value={formData.magozord} onChange={handleChange} />
 
-        <button type="submit">Add Season</button>
+        <button type="submit">{existingData ? 'Update' : 'Create'} Season</button>
       </form>
     </div>
   );

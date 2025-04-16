@@ -1,5 +1,7 @@
+// src/App.jsx
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
 import SeasonList from './components/season/SeasonList';
@@ -7,80 +9,52 @@ import SeasonDetail from './components/season/SeasonDetail';
 import SeasonForm from './components/season/SeasonForm';
 import CharactersPage from './components/characters/CharactersPage';
 import CharacterDetail from './components/characters/CharacterDetail';
+import CharacterForm from './components/characters/CharacterForm';
 import MegazordPage from './components/megazord/MegazordPage';
 import MegazordDetail from './components/megazord/MegazordDetail';
+import MegazordForm from './components/megazord/MegazordForm';
 import Footer from './components/footer/footer';
+
 import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
-import MegazordForm from './components/megazord/MegazordForm';
-
 
 const App = () => {
   const [seasons, setSeasons] = useState([]);
   const [rangers, setRangers] = useState([]);
   const [megazords, setMegazords] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const handleSelect = (pet) => {
-    setSelected(pet);
-    // Close the form if it's open when a new pet is selected.
-    setIsFormOpen(false);
-  };
-
-  const handleFormView = () => {
-    setIsFormOpen(!isFormOpen);
-  };
 
   useEffect(() => {
-    const fetchSeasons = async () => {
+    const fetchAllData = async () => {
       try {
         const fetchedSeasons = await Services.fetchSeasons();
-        if (fetchedSeasons && fetchedSeasons.err) {
-          throw new Error(fetchedSeasons.err);
-        }
-        setSeasons(fetchedSeasons || []);
-      } catch (err) {
-        console.error("Error fetching seasons:", err);
-      }
-    };
-
-    const fetchRangers = async () => {
-      try {
         const fetchedRangers = await getAllRangers();
-        setRangers(fetchedRangers || []);
-      } catch (err) {
-        console.error("Error fetching rangers:", err);
-      }
-    };
-
-    const fetchMegazords = async () => {
-      try {
         const fetchedMegazords = await getAllMegazords();
+        setSeasons(fetchedSeasons || []);
+        setRangers(fetchedRangers || []);
         setMegazords(fetchedMegazords || []);
       } catch (err) {
-        console.error("Error fetching megazords:", err);
+        console.error("Data fetch error:", err);
       }
     };
 
-    fetchSeasons();
-    fetchRangers();
-    fetchMegazords();
+    fetchAllData();
   }, []);
+
+  const handleFormView = () => setIsFormOpen(!isFormOpen);
 
   return (
     <Router>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
-        {/* Using plural routes for consistency */}
         <Route path="/seasons" element={<SeasonList />} />
-        <Route path="/seasons/:id" element={<SeasonDetail />} />
-        <Route path="/seasonsForm" element={<SeasonForm />} />
+        <Route path="/seasons/:id" element={<SeasonDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
         <Route path="/characters" element={<CharactersPage characters={rangers} />} />
-        <Route path="/characters/:id" element={<CharacterDetail selected={selected}/>} />
+        <Route path="/characters/:id" element={<CharacterDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
         <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
-        <Route path="/megazords/:id" element={<MegazordDetail />} />
-        <Route path="/megazordForm" element={<MegazordForm/>} />
+        <Route path="/megazords/:id" element={<MegazordDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
       </Routes>
       <Footer />
     </Router>
