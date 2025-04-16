@@ -210,6 +210,7 @@ const deleteMegazord = async (id) => {
   }
 };
 
+
 export {
   fetchSeasons,
   fetchSeasonDetails,
