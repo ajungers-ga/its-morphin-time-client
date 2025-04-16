@@ -1,7 +1,7 @@
 // src/components/season/SeasonForm.jsx
-import { useState, useEffect } from 'react';
-import './seasonForm.css';
+import { useState } from 'react';
 import * as Services from '../services/services';
+import './seasonForm.css';
 
 const SeasonForm = ({ existingData = null, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -20,36 +20,54 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
     magozord: '',
   });
 
-  useEffect(() => {
-    if (existingData) {
-      setFormData({
-        ...formData,
-        ...existingData,
-        rangers: existingData.rangers?.join(', ') || '',
-        magozord: existingData.magozord?.join(', ') || '',
-      });
-    }
-  }, [existingData]);
-
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    console.log("🟡 Submitting Season Form:", formData); 
+
     const preparedData = {
       ...formData,
-      rangers: formData.rangers.split(',').map(id => id.trim()),
-      magozord: formData.magozord.split(',').map(id => id.trim()),
+      rangers: formData.rangers
+        ? formData.rangers.split(',').map((id) => id.trim())
+        : [],
+      magozord: formData.magozord
+        ? formData.magozord.split(',').map((id) => id.trim())
+        : [],
     };
 
-    if (existingData) {
-      await Services.updateSeason(existingData._id, preparedData);
-    } else {
-      await Services.createSeason(preparedData);
-    }
+    try {
+      if (existingData) {
+        await Services.updateSeason(existingData._id, preparedData);
+        console.log("✅ Season updated successfully!");
+      } else {
+        await Services.createSeason(preparedData); //  Create
+        console.log("✅ Season created successfully!");
 
-    if (onSubmit) onSubmit(); // Close or refresh from parent
+        // Optional: Reset form after creation
+        setFormData({
+          name: '',
+          sentaiName: '',
+          airingYear: '',
+          seasonNumber: '',
+          numberOfEpisodes: '',
+          firstEpisode: '',
+          lastEpisode: '',
+          theme: '',
+          producer: '',
+          comment: '',
+          img: '',
+          rangers: '',
+          magozord: '',
+        });
+      }
+
+      if (onSubmit) onSubmit(); // ✅ Redirect from App.jsx
+    } catch (err) {
+      console.error(" Error submitting form:", err);
+    }
   };
 
   return (
@@ -90,10 +108,10 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
         <label htmlFor="img">Image URL</label>
         <input id="img" name="img" value={formData.img} onChange={handleChange} />
 
-        <label htmlFor="rangers">Rangers (IDs comma-separated)</label>
+        <label htmlFor="rangers">Rangers (comma-separated IDs)</label>
         <input id="rangers" name="rangers" value={formData.rangers} onChange={handleChange} />
 
-        <label htmlFor="magozord">Megazords (IDs comma-separated)</label>
+        <label htmlFor="magozord">Megazords (comma-separated IDs)</label>
         <input id="magozord" name="magozord" value={formData.magozord} onChange={handleChange} />
 
         <button type="submit">{existingData ? 'Update' : 'Create'} Season</button>
