@@ -1,5 +1,7 @@
 // src/components/season/SeasonForm.jsx
+
 import { useState, useEffect } from 'react';
+
 import * as Services from '../services/services';
 import './seasonForm.css';
 
@@ -20,42 +22,6 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
     magozord: '',
   });
 
-  useEffect(() => {
-    if (existingData) {
-      setFormData({
-        name: existingData.name || '',
-        sentaiName: existingData.sentaiName || '',
-        airingYear: existingData.airingYear || '',
-        seasonNumber: existingData.seasonNumber || '',
-        numberOfEpisodes: existingData.numberOfEpisodes || '',
-        firstEpisode: existingData.firstEpisode || '',
-        lastEpisode: existingData.lastEpisode || '',
-        theme: existingData.theme || '',
-        producer: existingData.producer || '',
-        comment: existingData.comment || '',
-        img: existingData.img || '',
-        rangers: existingData.rangers ? existingData.rangers.map(r => r._id).join(',') : '',
-        magozord: existingData.magozord ? existingData.magozord.map(m => m._id).join(',') : '',
-      });
-    } else {
-      // Reset form if existingData becomes null (e.g., when adding a new season)
-      setFormData({
-        name: '',
-        sentaiName: '',
-        airingYear: '',
-        seasonNumber: '',
-        numberOfEpisodes: '',
-        firstEpisode: '',
-        lastEpisode: '',
-        theme: '',
-        producer: '',
-        comment: '',
-        img: '',
-        rangers: '',
-        magozord: '',
-      });
-    }
-  }, [existingData]); // Depend on existingData to trigger the effect
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -63,7 +29,9 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+
     console.log("🟡 Submitting Season Form:", formData);
+
 
     const preparedData = {
       ...formData,
@@ -78,6 +46,7 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
     try {
       if (existingData) {
         await Services.updateSeason(existingData._id, preparedData);
+
         console.log("✅ Season updated successfully!");
       } else {
         await Services.createSeason(preparedData); //  Create
@@ -89,6 +58,7 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
       if (onSubmit) onSubmit(); // ✅ Redirect from App.jsx
     } catch (err) {
       console.error(" Error submitting form:", err);
+
     }
   };
 
