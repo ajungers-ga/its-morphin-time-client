@@ -89,6 +89,7 @@ const MegazordForm = (props) => {
   return (
     <div className='megazordForm'>
       <form>
+        <h1>Add A Zord</h1>
         <label htmlFor="name"> Name: </label>
         <input
           id="name"

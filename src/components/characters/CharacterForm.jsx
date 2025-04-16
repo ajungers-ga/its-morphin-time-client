@@ -29,6 +29,7 @@ const rangerForm = (props) => {
   return (
     <div className= "rangerForm">
       <form>
+      <h1>Add A Ranger</h1>
         <label htmlFor="name"> Name </label>
         <input
           id="name"
