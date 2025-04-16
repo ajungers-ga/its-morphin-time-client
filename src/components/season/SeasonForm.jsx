@@ -1,5 +1,7 @@
 // src/components/season/SeasonForm.jsx
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
+
 import * as Services from '../services/services';
 import './seasonForm.css';
 
@@ -20,12 +22,16 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
     magozord: '',
   });
 
+
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+
+    console.log("🟡 Submitting Season Form:", formData);
+
 
     const preparedData = {
       ...formData,
@@ -40,13 +46,19 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
     try {
       if (existingData) {
         await Services.updateSeason(existingData._id, preparedData);
+
+        console.log("✅ Season updated successfully!");
       } else {
-        await Services.createSeason(preparedData); // 🛠️ Create
+        await Services.createSeason(preparedData); //  Create
+        console.log("✅ Season created successfully!");
+
+        // Optional: Reset form after creation (already handled in useEffect for null existingData)
       }
 
       if (onSubmit) onSubmit(); // ✅ Redirect from App.jsx
     } catch (err) {
-      console.error("Error submitting form:", err);
+      console.error(" Error submitting form:", err);
+
     }
   };
 

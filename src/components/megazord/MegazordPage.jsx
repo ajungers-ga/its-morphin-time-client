@@ -35,10 +35,23 @@ const MegazordPage = ({ megazords: initialMegazords }) => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    if (existingData) {
+      await Services.updateMegazord(existingData._id, formData);
+    } else {
+      await Services.createMegazord(formData);
+    }
+  
+    if (onSubmit) onSubmit();
+  };
+  
 
   return (
     <div className="megazords-page-container">
       <h1>Power Rangers Megazords</h1>
+      <Link to="/megazords/new">+ Add New Megazord</Link>
       {!megazords || megazords.length === 0 ? (
         <p>No megazords available.</p>
       ) : (
@@ -50,6 +63,8 @@ const MegazordPage = ({ megazords: initialMegazords }) => {
           ))}
         </ul>
       )}
+     <Link to="/megazords/new">+ Add New Megazord</Link>
+
     </div>
   );
 };
