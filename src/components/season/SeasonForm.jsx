@@ -26,6 +26,7 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    console.log("🟡 Submitting Season Form:", formData); 
 
     const preparedData = {
       ...formData,
@@ -40,13 +41,32 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
     try {
       if (existingData) {
         await Services.updateSeason(existingData._id, preparedData);
+        console.log("✅ Season updated successfully!");
       } else {
-        await Services.createSeason(preparedData); // 🛠️ Create
+        await Services.createSeason(preparedData); //  Create
+        console.log("✅ Season created successfully!");
+
+        // Optional: Reset form after creation
+        setFormData({
+          name: '',
+          sentaiName: '',
+          airingYear: '',
+          seasonNumber: '',
+          numberOfEpisodes: '',
+          firstEpisode: '',
+          lastEpisode: '',
+          theme: '',
+          producer: '',
+          comment: '',
+          img: '',
+          rangers: '',
+          magozord: '',
+        });
       }
 
       if (onSubmit) onSubmit(); // ✅ Redirect from App.jsx
     } catch (err) {
-      console.error("Error submitting form:", err);
+      console.error(" Error submitting form:", err);
     }
   };
 
