@@ -5,15 +5,18 @@ import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
 import SeasonList from './components/season/SeasonList';
 import SeasonDetail from './components/season/SeasonDetail';
+import SeasonForm from './components/season/SeasonForm';
 import CharactersPage from './components/characters/CharactersPage';
 import CharacterDetail from './components/characters/CharacterDetail';
 import MegazordPage from './components/megazord/MegazordPage';
 import MegazordDetail from './components/megazord/MegazordDetail';
 import Footer from './components/footer/footer';
 
+
 import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
+import MegazordForm from './components/megazord/MegazordForm';
 
 
 const App = () => {
@@ -74,11 +77,13 @@ const App = () => {
         <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
         {/* Using plural routes for consistency */}
         <Route path="/seasons" element={<SeasonList />} />
-        <Route path="/seasons/:id" element={<SeasonDetail selected={selected}/>} />
+        <Route path="/seasons/:id" element={<SeasonDetail />} />
+        <Route path="/seasonsForm" element={<SeasonForm />} />
         <Route path="/characters" element={<CharactersPage characters={rangers} />} />
         <Route path="/characters/:id" element={<CharacterDetail selected={selected}/>} />
         <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
-        <Route path="/megazords/:id" element={<MegazordDetail selected={selected}/>} />
+        <Route path="/megazords/:id" element={<MegazordDetail />} />
+        <Route path="/megazordForm" element={<MegazordForm/>} />
       </Routes>
       <Footer />
     </Router>
