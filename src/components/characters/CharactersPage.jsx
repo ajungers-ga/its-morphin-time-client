@@ -30,9 +30,27 @@ const CharactersPage = ({ characters }) => {
   if (loading) return <div>Loading characters...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const prepared = {
+      ...formData,
+      zord: formData.zord.split(',').map(z => z.trim()),
+    };
+  
+    if (existingData) {
+      await Services.updateCharacter(existingData._id, prepared);
+    } else {
+      await Services.createCharacter(prepared);
+    }
+  
+    if (onSubmit) onSubmit();
+  };
+  
+
   return (
     <div className="characters-page-container">
       <h1>Power Rangers Characters</h1>
+      <Link to="/characters/new">+ Add New Character</Link>
       <ul className="characters-list">
         {charList.map((character) => (
           <li key={character._id} className="character-item">
@@ -42,6 +60,8 @@ const CharactersPage = ({ characters }) => {
           </li>
         ))}
       </ul>
+      
+
     </div>
   );
 };
