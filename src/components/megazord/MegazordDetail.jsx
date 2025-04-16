@@ -1,23 +1,27 @@
 // src/components/megazord/MegazordDetail.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as Services from '../services/services';
 import MegazordForm from './MegazordForm';
 import './MegazordDetail.css';
 
 const MegazordDetail = ({ isFormOpen, handleFormView }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [megazordDetails, setMegazordDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchDetails = async () => {
-    setLoading(true);
     try {
       const data = await Services.fetchMegazordDetails(id);
-      setMegazordDetails(data);
-    } catch (err) {
-      setError('Error loading Megazord details.');
+      if (data && !data.err) {
+        setMegazordDetails(data);
+      } else {
+        setError(data?.err || 'Megazord not found.');
+      }
+    } catch {
+      setError("Error fetching Megazord.");
     } finally {
       setLoading(false);
     }
@@ -27,14 +31,21 @@ const MegazordDetail = ({ isFormOpen, handleFormView }) => {
     fetchDetails();
   }, [id]);
 
-  const handleFormSubmit = () => {
-    handleFormView();    // close form
-    fetchDetails();      // refresh data
+  const handleDelete = async () => {
+    const confirm = window.confirm("Delete this Megazord?");
+    if (!confirm) return;
+
+    await Services.deleteMegazord(id);
+    navigate("/megazords");
   };
 
-  if (loading) return <div>Loading Megazord details...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!megazordDetails) return <div>No Megazord details found.</div>;
+  const handleFormSubmit = () => {
+    handleFormView();    // close form
+    fetchDetails();      // refresh updated data
+  };
+
+  if (loading) return <div>Loading Megazord...</div>;
+  if (error || !megazordDetails) return <div>{error || "No data found."}</div>;
 
   return (
     <div className="megazord-detail-container">
@@ -49,52 +60,44 @@ const MegazordDetail = ({ isFormOpen, handleFormView }) => {
           />
         )}
 
-        <p>
-          <strong>First Appeared In Season:</strong>{' '}
+        <p><strong>Combined Megazord:</strong> {megazordDetails.combinedMegazord || 'None'}</p>
+
+        <p><strong>Season:</strong>{' '}
           {megazordDetails.firstAppearedInSeason ? (
             <Link to={`/seasons/${megazordDetails.firstAppearedInSeason._id}`}>
-              {megazordDetails.firstAppearedInSeason.name || 'Unknown'}
+              {megazordDetails.firstAppearedInSeason.name || 'Unnamed Season'}
             </Link>
-          ) : (
-            'N/A'
-          )}
-        </p>
-
-        <p>
-          <strong>Combined Megazord:</strong>{' '}
-          {megazordDetails.combinedMegazord || 'None'}
+          ) : 'Unknown'}
         </p>
 
         <div>
           <strong>Piloted By:</strong>
-          {megazordDetails.pilotedBy && megazordDetails.pilotedBy.length > 0 ? (
+          {megazordDetails.pilotedBy?.length > 0 ? (
             <ul>
               {megazordDetails.pilotedBy.map((ranger) => (
                 <li key={ranger._id}>
-                  <Link to={`/characters/${ranger._id}`}>
-                    {ranger.name || 'Unnamed Ranger'}
-                  </Link>
+                  <Link to={`/characters/${ranger._id}`}>{ranger.name}</Link>
                 </li>
               ))}
             </ul>
           ) : (
-            <p>No pilot information available.</p>
+            <p>No pilot data.</p>
           )}
         </div>
 
         <Link to="/megazords">← Back to Megazords</Link>
 
         <button onClick={handleFormView}>
-          {isFormOpen ? 'Close Form' : 'Edit Megazord'}
+          {isFormOpen ? "Close Form" : "Edit Megazord"}
+        </button>
+        <button onClick={handleDelete} className="delete-button">
+          Delete Megazord
         </button>
       </div>
 
       {isFormOpen && (
         <div className="megazord-form-wrapper">
-          <MegazordForm
-            existingData={megazordDetails}
-            onSubmit={handleFormSubmit}
-          />
+          <MegazordForm existingData={megazordDetails} onSubmit={handleFormSubmit} />
         </div>
       )}
     </div>
