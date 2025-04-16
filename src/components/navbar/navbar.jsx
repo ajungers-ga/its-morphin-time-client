@@ -16,6 +16,7 @@ const NavBar = () => {
 
  
         <li><Link to="/megazords">Megazords</Link></li>
+        <li><Link to="/megazordForm">Megazord Form</Link></li>
         {/* Uncomment below if you add a Services page */}
         {/* <li><Link to="/services">Services</Link></li> */}
       </ul>
