@@ -88,6 +88,9 @@ const CharacterDetail = () => {
         )}
       </p>
       <Link to="/characters">← Back to Characters</Link>
+      <button onClick={props.handleFormView}>
+        {props.isFormOpen ? 'Close Form' : 'New Pet'}
+      </button>
       </div>
      
 

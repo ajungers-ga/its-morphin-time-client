@@ -20,6 +20,16 @@ const App = () => {
   const [seasons, setSeasons] = useState([]);
   const [rangers, setRangers] = useState([]);
   const [megazords, setMegazords] = useState([]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const handleSelect = (pet) => {
+    setSelected(pet);
+    // Close the form if it's open when a new pet is selected.
+    setIsFormOpen(false);
+  };
+
+  const handleFormView = () => {
+    setIsFormOpen(!isFormOpen);
+  };
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -64,11 +74,11 @@ const App = () => {
         <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
         {/* Using plural routes for consistency */}
         <Route path="/seasons" element={<SeasonList />} />
-        <Route path="/seasons/:id" element={<SeasonDetail />} />
+        <Route path="/seasons/:id" element={<SeasonDetail selected={selected}/>} />
         <Route path="/characters" element={<CharactersPage characters={rangers} />} />
-        <Route path="/characters/:id" element={<CharacterDetail />} />
+        <Route path="/characters/:id" element={<CharacterDetail selected={selected}/>} />
         <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
-        <Route path="/megazords/:id" element={<MegazordDetail />} />
+        <Route path="/megazords/:id" element={<MegazordDetail selected={selected}/>} />
       </Routes>
       <Footer />
     </Router>
