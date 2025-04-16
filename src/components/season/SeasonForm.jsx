@@ -1,5 +1,5 @@
 // src/components/season/SeasonForm.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Services from '../services/services';
 import './seasonForm.css';
 
@@ -20,13 +20,50 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
     magozord: '',
   });
 
+  useEffect(() => {
+    if (existingData) {
+      setFormData({
+        name: existingData.name || '',
+        sentaiName: existingData.sentaiName || '',
+        airingYear: existingData.airingYear || '',
+        seasonNumber: existingData.seasonNumber || '',
+        numberOfEpisodes: existingData.numberOfEpisodes || '',
+        firstEpisode: existingData.firstEpisode || '',
+        lastEpisode: existingData.lastEpisode || '',
+        theme: existingData.theme || '',
+        producer: existingData.producer || '',
+        comment: existingData.comment || '',
+        img: existingData.img || '',
+        rangers: existingData.rangers ? existingData.rangers.map(r => r._id).join(',') : '',
+        magozord: existingData.magozord ? existingData.magozord.map(m => m._id).join(',') : '',
+      });
+    } else {
+      // Reset form if existingData becomes null (e.g., when adding a new season)
+      setFormData({
+        name: '',
+        sentaiName: '',
+        airingYear: '',
+        seasonNumber: '',
+        numberOfEpisodes: '',
+        firstEpisode: '',
+        lastEpisode: '',
+        theme: '',
+        producer: '',
+        comment: '',
+        img: '',
+        rangers: '',
+        magozord: '',
+      });
+    }
+  }, [existingData]); // Depend on existingData to trigger the effect
+
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    console.log("🟡 Submitting Season Form:", formData); 
+    console.log("🟡 Submitting Season Form:", formData);
 
     const preparedData = {
       ...formData,
@@ -46,22 +83,7 @@ const SeasonForm = ({ existingData = null, onSubmit }) => {
         await Services.createSeason(preparedData); //  Create
         console.log("✅ Season created successfully!");
 
-        // Optional: Reset form after creation
-        setFormData({
-          name: '',
-          sentaiName: '',
-          airingYear: '',
-          seasonNumber: '',
-          numberOfEpisodes: '',
-          firstEpisode: '',
-          lastEpisode: '',
-          theme: '',
-          producer: '',
-          comment: '',
-          img: '',
-          rangers: '',
-          magozord: '',
-        });
+        // Optional: Reset form after creation (already handled in useEffect for null existingData)
       }
 
       if (onSubmit) onSubmit(); // ✅ Redirect from App.jsx
