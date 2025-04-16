@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import './seasonForm.css';
-
+import * as Services from '../services/services'
 const SeasonForm = ({ handleAddSeason }) => {
   // 1. Define state for controlled form
   const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ const SeasonForm = ({ handleAddSeason }) => {
 
   // 4. Return JSX
   return (
-    <div classname="seasonForm">
+    <div className="seasonForm">
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input id="name" name="name" value={formData.name} onChange={handleChange} required />
