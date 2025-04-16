@@ -1,6 +1,11 @@
 // src/App.jsx
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate
+} from 'react-router-dom';
 
 import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
@@ -19,7 +24,10 @@ import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
 
-const App = () => {
+// 🔥 Create a wrapper component inside App to access useNavigate
+const AppWrapper = () => {
+  const navigate = useNavigate();
+
   const [seasons, setSeasons] = useState([]);
   const [rangers, setRangers] = useState([]);
   const [megazords, setMegazords] = useState([]);
@@ -45,17 +53,29 @@ const App = () => {
   const handleFormView = () => setIsFormOpen(!isFormOpen);
 
   return (
+    <Routes>
+      <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
+      <Route path="/seasons" element={<SeasonList />} />
+      <Route path="/seasons/:id" element={<SeasonDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
+      <Route path="/seasons/new" element={<SeasonForm onSubmit={() => navigate("/seasons")} />} />
+      
+      <Route path="/characters" element={<CharactersPage characters={rangers} />} />
+      <Route path="/characters/:id" element={<CharacterDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
+      <Route path="/characters/new" element={<CharacterForm onSubmit={() => navigate("/characters")} />} />
+      
+      <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
+      <Route path="/megazords/:id" element={<MegazordDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
+      <Route path="/megazords/new" element={<MegazordForm onSubmit={() => navigate("/megazords")} />} />
+    </Routes>
+  );
+};
+
+// 🔥 Wrap the AppWrapper inside Router here
+const App = () => {
+  return (
     <Router>
       <NavBar />
-      <Routes>
-        <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
-        <Route path="/seasons" element={<SeasonList />} />
-        <Route path="/seasons/:id" element={<SeasonDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
-        <Route path="/characters" element={<CharactersPage characters={rangers} />} />
-        <Route path="/characters/:id" element={<CharacterDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
-        <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
-        <Route path="/megazords/:id" element={<MegazordDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
-      </Routes>
+      <AppWrapper />
       <Footer />
     </Router>
   );
