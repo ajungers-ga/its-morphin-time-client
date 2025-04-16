@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
 import SeasonList from './components/season/SeasonList';
@@ -11,8 +10,6 @@ import CharacterDetail from './components/characters/CharacterDetail';
 import MegazordPage from './components/megazord/MegazordPage';
 import MegazordDetail from './components/megazord/MegazordDetail';
 import Footer from './components/footer/footer';
-
-
 import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
