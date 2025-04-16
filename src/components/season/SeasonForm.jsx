@@ -36,6 +36,7 @@ const SeasonForm = ({ handleAddSeason }) => {
   return (
     <div className="seasonForm">
       <form onSubmit={handleSubmit}>
+        <h1>Add A Season</h1>
         <label htmlFor="name">Name</label>
         <input id="name" name="name" value={formData.name} onChange={handleChange} required />
 
