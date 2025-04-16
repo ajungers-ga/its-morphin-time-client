@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import NavBar from './components/navbar/navbar';
 import Home from './components/home/home';
 import SeasonList from './components/season/SeasonList';
@@ -12,6 +13,7 @@ import MegazordDetail from './components/megazord/MegazordDetail';
 import Footer from './components/footer/footer';
 import CharacterForm from './components/characters/CharacterForm'
 
+
 import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
@@ -22,16 +24,6 @@ const App = () => {
   const [seasons, setSeasons] = useState([]);
   const [rangers, setRangers] = useState([]);
   const [megazords, setMegazords] = useState([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const handleSelect = (pet) => {
-    setSelected(pet);
-    // Close the form if it's open when a new pet is selected.
-    setIsFormOpen(false);
-  };
-
-  const handleFormView = () => {
-    setIsFormOpen(!isFormOpen);
-  };
 
   useEffect(() => {
     const fetchSeasons = async () => {
