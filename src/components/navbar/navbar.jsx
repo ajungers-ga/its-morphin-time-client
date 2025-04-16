@@ -9,7 +9,12 @@ const NavBar = () => {
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/seasons">Seasons</Link></li>
+        <li><Link to="/seasonsForm">Seasons Form</Link></li>
+   
         <li><Link to="/characters">Characters</Link></li>
+
+
+ 
         <li><Link to="/megazords">Megazords</Link></li>
         {/* Uncomment below if you add a Services page */}
         {/* <li><Link to="/services">Services</Link></li> */}
