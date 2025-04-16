@@ -10,7 +10,6 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
     fullName: '',
     zord: '',
     gender: '',
-    season: '',
     color: '',
     homeworld: '',
     firstAp: '',
@@ -24,11 +23,35 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
   useEffect(() => {
     if (existingData) {
       setFormData({
-        ...formData,
-        ...existingData,
+        rangerID: existingData.rangerID || '',
+        name: existingData.name || '',
+        fullName: existingData.fullName || '',
         zord: Array.isArray(existingData.zord) ? existingData.zord.join(', ') : existingData.zord || '',
-        season: existingData.season?._id || existingData.season || '',
+        gender: existingData.gender || '',
+        color: existingData.color || '',
+        homeworld: existingData.homeworld || '',
+        firstAp: existingData.firstAp || '',
+        lastAp: existingData.lastAp || '',
+        numberOfAp: existingData.numberOfAp || '',
+        actor: existingData.actor || '',
+        img: existingData.img || '',
         megazordPiloted: existingData.megazordPiloted?._id || existingData.megazordPiloted || '',
+      });
+    } else {
+      setFormData({
+        rangerID: '',
+        name: '',
+        fullName: '',
+        zord: '',
+        gender: '',
+        color: '',
+        homeworld: '',
+        firstAp: '',
+        lastAp: '',
+        numberOfAp: '',
+        actor: '',
+        img: '',
+        megazordPiloted: '',
       });
     }
   }, [existingData]);
@@ -42,7 +65,11 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
 
     const preparedData = {
       ...formData,
+      rangerID: parseInt(formData.rangerID, 10),
+      numberOfAp: parseInt(formData.numberOfAp, 10),
       zord: formData.zord.split(',').map((z) => z.trim()),
+      megazordPiloted: formData.megazordPiloted || undefined,
+      // season field is still excluded
     };
 
     if (existingData) {
@@ -59,8 +86,20 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
       <form onSubmit={handleSubmit}>
         <h2>{existingData ? 'Edit' : 'Add'} Ranger</h2>
 
-        <label htmlFor="rangerID">Ranger ID</label>
-        <input name="rangerID" value={formData.rangerID} onChange={handleChange} required />
+        {!existingData && (
+          <>
+            {/* Ranger ID will not be shown for create */}
+            <label htmlFor="rangerID">Ranger ID</label>
+            <input type="number" name="rangerID" value={formData.rangerID} onChange={handleChange} required />
+          </>
+        )}
+        {existingData && (
+          <>
+            <label htmlFor="rangerID">Ranger ID</label>
+            <input type="number" name="rangerID" value={formData.rangerID} onChange={handleChange} required readOnly />
+          </>
+        )}
+
 
         <label htmlFor="name">Ranger Name</label>
         <input name="name" value={formData.name} onChange={handleChange} required />
@@ -73,9 +112,6 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
 
         <label htmlFor="gender">Gender</label>
         <input name="gender" value={formData.gender} onChange={handleChange} required />
-
-        <label htmlFor="season">Season ID</label>
-        <input name="season" value={formData.season} onChange={handleChange} required />
 
         <label htmlFor="color">Ranger Color</label>
         <input name="color" value={formData.color} onChange={handleChange} required />
@@ -98,8 +134,19 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
         <label htmlFor="img">Image URL</label>
         <input name="img" value={formData.img} onChange={handleChange} />
 
-        <label htmlFor="megazordPiloted">Megazord ID</label>
-        <input name="megazordPiloted" value={formData.megazordPiloted} onChange={handleChange} />
+        {!existingData && (
+          <>
+            {/* Megazord ID will not be shown for create */}
+            <label htmlFor="megazordPiloted">Megazord ID</label>
+            <input name="megazordPiloted" value={formData.megazordPiloted} onChange={handleChange} />
+          </>
+        )}
+        {existingData && (
+          <>
+            <label htmlFor="megazordPiloted">Megazord ID</label>
+            <input name="megazordPiloted" value={formData.megazordPiloted} onChange={handleChange} />
+          </>
+        )}
 
         <button type="submit">{existingData ? 'Update' : 'Create'} Ranger</button>
       </form>
