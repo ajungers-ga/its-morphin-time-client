@@ -50,6 +50,7 @@ const CharactersPage = ({ characters }) => {
   return (
     <div className="characters-page-container">
       <h1>Power Rangers Characters</h1>
+      <Link to="/characters/new">+ Add New Character</Link>
       <ul className="characters-list">
         {charList.map((character) => (
           <li key={character._id} className="character-item">
@@ -59,7 +60,7 @@ const CharactersPage = ({ characters }) => {
           </li>
         ))}
       </ul>
-      <Link to="/characters/new">+ Add New Character</Link>
+      
 
     </div>
   );
