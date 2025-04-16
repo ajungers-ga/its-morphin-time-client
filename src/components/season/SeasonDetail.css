@@ -25,6 +25,7 @@ SeasonDetail.css .season-detail-container {
 .season-info h1 {
   color: #039be5;
   margin-bottom: 20px;
+  font-size: 35px;
 }
 
 .season-image {
