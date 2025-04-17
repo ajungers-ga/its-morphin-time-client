@@ -21,6 +21,13 @@
  font-size: 50px;
 }
 
+.characters-page-container a {
+  text-decoration: none;
+  color: #ff9800;
+  font-size: 1.2rem;
+}
+
+
 .characters-list {
   list-style: none;
   padding: 0;
@@ -37,19 +44,20 @@
   font-size: 30px;
 }
 
-.characters-list li:hover {
+/* .characters-list li:hover {
   background-color: #f0f0f0;
   transform: translateY(-2px);
-}
+} */
 
 .characters-list a {
-  font-size: 1.2rem;
-  color: #007bff;
   text-decoration: none;
-  transition: color 0.2s ease;
+  color: #ff9800;
+  font-size: 1.2rem;
 }
 
 .characters-list a:hover {
-  text-decoration: underline;
-  color: #0056b3;
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  padding: 10px;
+  border-radius: 15px;
 }

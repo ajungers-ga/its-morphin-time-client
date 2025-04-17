@@ -25,6 +25,7 @@ const SeasonList = () => {
   return (
     <div className="season-list-container">
       <h1>Power Rangers Seasons</h1>
+      <Link to="/seasons/new">+ Add New Season</Link>
       <ul className="season-list">
         {seasons.map((season) => (
           <li key={season._id}>
@@ -32,7 +33,7 @@ const SeasonList = () => {
           </li>
         ))}
       </ul>
-      <Link to="/seasons/new">+ Add New Season</Link>
+      
     </div> 
   );
 };

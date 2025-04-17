@@ -74,6 +74,14 @@ const CharacterDetail = ({ isFormOpen, handleFormView }) => {
               </Link>
             ) : "Unknown Season"}
           </p>
+          <p>
+            <strong>Megazord:</strong>{" "}
+            {character.megazordPiloted ? (
+              <Link to={`/megazords/${character.megazordPiloted._id || character.megazordPiloted}`}>
+                {character.megazordPiloted.name || character.megazordPiloted}
+              </Link>
+            ) : "Unknown Megazord"}
+          </p>
 
           <Link to="/characters">Back to Characters</Link>
 

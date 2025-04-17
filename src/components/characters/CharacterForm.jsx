@@ -1,6 +1,7 @@
 // src/components/characters/CharacterForm.jsx
 import { useState, useEffect } from 'react';
 import * as Services from '../services/services';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import './CharacterForm.css';
 
 const CharacterForm = ({ existingData = null, onSubmit }) => {
@@ -246,7 +247,13 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
         <button type="submit" disabled={isLoading}>
           {existingData ? 'Update' : 'Create'} Ranger
         </button>
+        <div>
+        <Link to="/characters">Back to Characters</Link>
+        </div>
+       
       </form>
+     
+     
     </div>
   );
 };

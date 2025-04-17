@@ -1,4 +1,3 @@
-// src/components/season/SeasonDetail.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as Services from '../services/services';
@@ -13,16 +12,34 @@ const SeasonDetail = ({ isFormOpen, handleFormView }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch season and assemble rangers + megazords
   const fetchSeason = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const data = await Services.fetchSeasonDetails(id);
-      if (data && !data.err) {
-        setSeasonDetails(data);
-      } else {
-        setError(data?.err || 'Failed to load season.');
-      }
+      // 1. Get the season (populated with 'rangers' and 'megozords')
+      const season = await Services.fetchSeasonDetails(id);
+      if (season.err) throw new Error(season.err);
+
+      // 2. Filter all characters for this season
+      const allRangers = await Services.fetchCharacters();
+      const rangers = (allRangers || []).filter(r => r.season === id);
+
+      // 3. Use populated megozords from the fetched season
+      const allMegards = await Services.fetchMegazords()
+      const megazords = (allMegards || []).filter(m => m.firstAppearedInSeason === id);
+
+      // 4. Merge into state under 'rangers' and 'megazords'
+      const merged = {
+        ...season,
+        rangers,
+        megazords
+      };
+      console.log('Merged payload →', merged);
+      setSeasonDetails(merged);
+      
     } catch (err) {
-      setError('Something went wrong.');
+      setError(err.message || 'Failed to load season data.');
     } finally {
       setLoading(false);
     }
@@ -33,33 +50,34 @@ const SeasonDetail = ({ isFormOpen, handleFormView }) => {
   }, [id]);
 
   const handleDelete = async () => {
-    const confirm = window.confirm("Are you sure you want to delete this season?");
-    if (!confirm) return;
-
+    if (!window.confirm('Are you sure you want to delete this season?')) return;
     await Services.deleteSeason(id);
-    navigate("/seasons");
+    navigate('/seasons');
   };
 
   const handleFormSubmit = () => {
-    handleFormView(); // close form
-    fetchSeason();    // refresh data
+    handleFormView();
+    fetchSeason();
   };
 
+
   if (loading) return <div>Loading season...</div>;
-  if (error || !seasonDetails) return <div>{error || "No data found."}</div>;
+  if (error || !seasonDetails) return <div>{error || 'No data found.'}</div>;
 
   return (
     <div className="season-detail-container">
       <div className="season-info">
         <h1>{seasonDetails.name} (Season {seasonDetails.seasonNumber})</h1>
+        
 
         {seasonDetails.img && (
           <img
             src={seasonDetails.img}
             alt={seasonDetails.name}
-            className="character-image"
+            className="season-image"
           />
         )}
+         
 
         <p><strong>Sentai Name:</strong> {seasonDetails.sentaiName}</p>
         <p><strong>Airing Year:</strong> {seasonDetails.airingYear}</p>
@@ -71,11 +89,12 @@ const SeasonDetail = ({ isFormOpen, handleFormView }) => {
         <p><strong>Comment:</strong> {seasonDetails.comment || 'None'}</p>
 
         {/* Megazords */}
-        {seasonDetails.magozord && seasonDetails.magozord.length > 0 ? (
+        {seasonDetails.megazords && seasonDetails.megazords.length > 0 ? (
           <>
+       
             <h3>Megazords</h3>
             <ul>
-              {seasonDetails.magozord.map((zord) => (
+              {seasonDetails.megazords.map(zord => (
                 <li key={zord._id}>
                   <Link to={`/megazords/${zord._id}`}>{zord.name}</Link>
                 </li>
@@ -91,7 +110,7 @@ const SeasonDetail = ({ isFormOpen, handleFormView }) => {
           <>
             <h3>Rangers</h3>
             <ul>
-              {seasonDetails.rangers.map((ranger) => (
+              {seasonDetails.rangers.map(ranger => (
                 <li key={ranger._id}>
                   <Link to={`/characters/${ranger._id}`}>{ranger.name}</Link>
                 </li>

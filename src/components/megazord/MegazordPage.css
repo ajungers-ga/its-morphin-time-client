@@ -1,20 +1,28 @@
 /* src/components/megazord/MegazordPage.css */
 .megazords-page-container {
   padding: 70px;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-family: "Goldman", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 30px;
+  margin-top: 80px; 
 }
 
 h1 {
   text-align: center;
   font-size: 50px;
+}
+
+.megazords-page-container a {
+    text-decoration: none;
+    color: #ff9800;
+    font-size: 1.2rem;
+  
 }
 
 .megazords-page-container p {

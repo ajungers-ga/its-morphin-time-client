@@ -50,11 +50,13 @@ const MegazordPage = () => {
     <div className="megazords-page-container">
       <h1>Power Rangers Megazords</h1>
       <Link to="/megazords/new">+ Add New Megazord</Link>
+      <div className="megazords-list">
 
       {!megazords || megazords.length === 0 ? (
         <p>No megazords available.</p>
       ) : (
-        <ul className="megazords-list">
+       
+        <ul className="megazords">
           {megazords.map((megazord) => (
             <li key={megazord._id} className="megazord-item">
               <Link to={`/megazords/${megazord._id}`}>{megazord.name}</Link>
@@ -62,6 +64,7 @@ const MegazordPage = () => {
           ))}
         </ul>
       )}
+      </div>
 
     </div>
   );
