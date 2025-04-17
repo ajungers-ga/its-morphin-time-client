@@ -170,7 +170,7 @@ const createMegazord = async (megazordData) => {
     const res = await fetch(`${BASE_URL}/megazords`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(megazordsData),
+      body: JSON.stringify(megazordData),
     });
     const data = await res.json();
     return data;

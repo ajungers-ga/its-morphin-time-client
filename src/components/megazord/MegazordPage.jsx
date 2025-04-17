@@ -62,7 +62,6 @@ const MegazordPage = () => {
           ))}
         </ul>
       )}
-     <Link to="/megazords/new">+ Add New Megazord</Link>
 
     </div>
   );
