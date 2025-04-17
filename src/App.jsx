@@ -24,7 +24,11 @@ import * as Services from './components/services/services';
 import { getAllRangers } from './services/rangerService';
 import { getAllMegazords } from './services/megazordService';
 
-// 🔥 Create a wrapper component inside App to access useNavigate
+const MegazordFormRoute = () => {
+  return <MegazordForm onSubmit={() => window.location.href = "/megazords"} />;
+};
+
+
 const AppWrapper = () => {
   const navigate = useNavigate();
 
@@ -54,23 +58,47 @@ const AppWrapper = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home seasons={seasons} characters={rangers} megazords={megazords} />} />
+      <Route
+        path="/"
+        element={
+          <Home
+            seasons={seasons}
+            characters={rangers}
+            megazords={megazords}
+          />
+        }
+      />
       <Route path="/seasons" element={<SeasonList />} />
-      <Route path="/seasons/:id" element={<SeasonDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
-      <Route path="/seasons/new" element={<SeasonForm onSubmit={() => navigate("/seasons")} />} />
-      
+      <Route
+        path="/seasons/:id"
+        element={<SeasonDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />}
+      />
+      <Route
+        path="/seasons/new"
+        element={<SeasonForm onSubmit={() => navigate("/seasons")} />}
+      />
       <Route path="/characters" element={<CharactersPage characters={rangers} />} />
-      <Route path="/characters/:id" element={<CharacterDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
-      <Route path="/characters/new" element={<CharacterForm onSubmit={() => navigate("/characters")} />} />
-      
-      <Route path="/megazords" element={<MegazordPage megazords={megazords} />} />
-      <Route path="/megazords/:id" element={<MegazordDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />} />
-      <Route path="/megazords/new" element={<MegazordForm onSubmit={() => navigate("/megazords")} />} />
+      <Route
+        path="/characters/:id"
+        element={<CharacterDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />}
+      />
+      <Route
+        path="/characters/new"
+        element={<CharacterDetail isFormOpen={true} handleFormView={() => {}} />}
+      />
+      <Route path="/megazords" element={<MegazordPage key={Date.now()} />} />
+      <Route
+        path="/megazords/:id"
+        element={<MegazordDetail isFormOpen={isFormOpen} handleFormView={handleFormView} />}
+      />
+      <Route
+        path="/megazords/new"
+        element={<MegazordFormRoute />}
+      />
     </Routes>
   );
 };
 
-// 🔥 Wrap the AppWrapper inside Router here
 const App = () => {
   return (
     <Router>

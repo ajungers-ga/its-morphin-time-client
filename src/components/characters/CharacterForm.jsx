@@ -98,6 +98,7 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
   // Handle form submission
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+
     setError(null);
 
     // Base prepared data excluding rangerID initially
@@ -146,6 +147,7 @@ const CharacterForm = ({ existingData = null, onSubmit }) => {
       console.error("Error submitting character form:", submitError);
       setError(`Failed to save Ranger: ${submitError.message || 'Please try again.'}`);
     }
+
   };
 
   // Display loading indicator
